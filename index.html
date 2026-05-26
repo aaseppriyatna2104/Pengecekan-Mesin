@@ -229,6 +229,45 @@
     color: var(--accent);
   }
 
+  /* CHECKBOX GROUP */
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .checkbox-group input[type="checkbox"] { display: none; }
+
+  .checkbox-group label:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .checkbox-group input[type="checkbox"]:checked + span {
+    /* handled by JS */
+  }
+
+  .checkbox-group label.selected {
+    background: rgba(0,212,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
   /* SECTIONS GRID */
   .sections-grid {
     display: grid;
@@ -928,12 +967,12 @@
         </div>
       </div>
       <div class="info-field">
-        <label>Nama Teknisi</label>
-        <div class="radio-group" id="teknisiGroup">
-          <label onclick="selectRadio('teknisiGroup',this)"><input type="radio" name="teknisi"><span>Asep</span></label>
-          <label onclick="selectRadio('teknisiGroup',this)"><input type="radio" name="teknisi"><span>Rezky</span></label>
-          <label onclick="selectRadio('teknisiGroup',this)"><input type="radio" name="teknisi"><span>Mahendra</span></label>
-          <label onclick="selectRadio('teknisiGroup',this)"><input type="radio" name="teknisi"><span>Rahmat</span></label>
+        <label>👤 Nama Teknisi (Pilih 1 atau lebih)</label>
+        <div class="checkbox-group" id="teknisiGroup">
+          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Asep"><span>Asep</span></label>
+          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Rezky"><span>Rezky</span></label>
+          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Mahendra"><span>Mahendra</span></label>
+          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Rahmat"><span>Rahmat</span></label>
         </div>
       </div>
       <div class="info-field">
@@ -1058,6 +1097,7 @@ const sections = [
           'Sensor barcode bekerja normal',
           'Transaksi normal',
           'Nama Lokasi mesin sesuai',
+          'Jumlah PowerBank sesuai',
         ]
       }
     ]
@@ -1151,7 +1191,7 @@ function renderSections() {
         const key = sec.id + '_' + sub.title + '_' + i;
         const checked = checkedState[key] ? 'checked' : '';
         return `
-          <label class="check-item ${checked}" onclick="toggleCheck('${key}', this)" data-key="${key}">
+          <label class="check-item ${checked}" onclick="toggleCheck('${key}', this, event)" data-key="${key}">
             <input type="checkbox" ${checked}>
             <div class="check-box">
               <svg viewBox="0 0 12 12" fill="none">
@@ -1196,7 +1236,8 @@ function renderSections() {
 }
 
 // ===== TOGGLE CHECK =====
-function toggleCheck(key, el) {
+function toggleCheck(key, el, event) {
+  if (event) event.preventDefault();
   checkedState[key] = !checkedState[key];
   if (checkedState[key]) {
     el.classList.add('checked');
@@ -1268,6 +1309,17 @@ function selectRadio(groupId, el) {
   el.querySelector('input').checked = true;
 }
 
+// ===== TOGGLE CHECKBOX =====
+function toggleCheckbox(el) {
+  const checkbox = el.querySelector('input[type="checkbox"]');
+  checkbox.checked = !checkbox.checked;
+  if (checkbox.checked) {
+    el.classList.add('selected');
+  } else {
+    el.classList.remove('selected');
+  }
+}
+
 // ===== STATUS =====
 function setStatus(val) {
   currentStatus = val;
@@ -1285,6 +1337,8 @@ function resetAll() {
   document.getElementById('idMesin').value = '';
   document.getElementById('catatan').value = '';
   document.querySelectorAll('.radio-group label').forEach(l => l.classList.remove('selected'));
+  document.querySelectorAll('.checkbox-group label').forEach(l => l.classList.remove('selected'));
+  document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(cb => cb.checked = false);
   document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
   renderSections();
   showToast('🔄 Semua data berhasil direset', '#ff6b35');
@@ -1332,8 +1386,8 @@ function buildWAText() {
   const typeSelected = document.querySelector('#typeGroup label.selected span');
   const type = typeSelected ? typeSelected.textContent : '(belum dipilih)';
 
-  const teknisiSelected = document.querySelector('#teknisiGroup label.selected span');
-  const teknisi = teknisiSelected ? teknisiSelected.textContent : '(belum dipilih)';
+  const teknisiSelected = Array.from(document.querySelectorAll('#teknisiGroup input[type="checkbox"]:checked')).map(cb => cb.value);
+  const teknisi = teknisiSelected.length > 0 ? teknisiSelected.join(', ') : '(belum dipilih)';
 
   const picSelected = document.querySelector('#picGroup label.selected span');
   const pic = picSelected ? picSelected.textContent : '(belum dipilih)';
@@ -1453,6 +1507,18 @@ document.getElementById('waModal').addEventListener('click', function(e) {
 // ===== INIT =====
 renderSections();
 setTimestamp();
+
+// Initialize checkbox event listeners for teknisi
+document.querySelectorAll('#teknisiGroup input[type="checkbox"]').forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    const label = this.closest('label');
+    if (this.checked) {
+      label.classList.add('selected');
+    } else {
+      label.classList.remove('selected');
+    }
+  });
+});
 </script>
 </body>
 </html>
