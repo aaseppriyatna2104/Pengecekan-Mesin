@@ -64,10 +64,12 @@ body{
   align-items:start;padding-bottom:14px;margin-bottom:14px;
   border-bottom:2px solid var(--navy);
 }
+.doc-brand{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:3px;display:none}
 .doc-title{font-size:17px;font-weight:700;color:var(--navy);line-height:1.2}
 .doc-sub{font-size:11px;color:var(--gray);margin-top:3px}
 .doc-meta{text-align:right;font-size:11px;color:var(--gray);line-height:1.8}
 .doc-meta strong{color:var(--text);font-weight:600}
+.print-only-inline{display:none}
 
 /* INFO GRID */
 .info-grid{
@@ -207,6 +209,11 @@ td{padding:6px 10px;vertical-align:middle}
   .print-info{display:grid!important}
   .print-tujuan{display:block!important}
 
+  .doc-brand{display:block!important}
+  .doc-title{font-size:14px!important}
+  .doc-sub{display:none!important}
+  .screen-only{display:none!important}
+  .print-only-inline{display:inline!important;font-size:9px;color:#6b7280;line-height:1.8}
   input.info-val{color:#111!important}
   table{font-size:9.5px!important}
   td{padding:4px 8px!important}
@@ -301,27 +308,16 @@ td{padding:6px 10px;vertical-align:middle}
 
   <div class="card">
 
-    <!-- PRINT HEADER (only shown on print) -->
-    <div class="print-header" style="align-items:flex-start;justify-content:space-between;border-bottom:2px solid #0f2240;padding-bottom:8px;margin-bottom:10px">
-      <div>
-        <div style="font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#6b7280;margin-bottom:2px">Gudang &amp; QC — SOP Pengecekan Mesin</div>
-        <div style="font-size:15px;font-weight:700;color:#0f2240">Checklist Pengecekan Mesin Sebelum Dibawa Teknisi</div>
-      </div>
-      <div style="text-align:right;font-size:9px;color:#6b7280;line-height:1.8">
-        Tanggal: <strong id="p-tgl" style="color:#111">–</strong><br>
-        Waktu: <strong id="p-wkt" style="color:#111">–</strong>
-      </div>
-    </div>
-
-    <!-- SCREEN DOC HEADER -->
+    <!-- UNIFIED HEADER -->
     <div class="doc-header">
       <div>
+        <div class="doc-brand">Gudang &amp; QC — SOP Pengecekan Mesin</div>
         <div class="doc-title">Checklist Pengecekan Mesin Sebelum Dibawa Teknisi</div>
-        <div class="doc-sub">Pastikan seluruh item terverifikasi sebelum mesin dikirimkan ke lokasi customer</div>
+        <div class="doc-sub screen-only">Pastikan seluruh item terverifikasi sebelum mesin dikirimkan ke lokasi customer</div>
       </div>
       <div class="doc-meta">
-        Progress: <strong id="overall-pct-label">0%</strong><br>
-        <span id="overall-count-label" style="font-size:10px">0 / 30 item</span>
+        <span class="screen-only">Progress: <strong id="overall-pct-label">0%</strong><br><span style="font-size:10px" id="overall-count-label">0 / 30 item</span></span>
+        <span class="print-only-inline">Tanggal: <strong id="p-tgl">–</strong><br>Waktu: <strong id="p-wkt">–</strong></span>
       </div>
     </div>
 
