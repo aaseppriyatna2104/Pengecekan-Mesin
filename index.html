@@ -3,703 +3,558 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOP Checklist — Pengecekan Mesin</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title>SOP Checklist Mesin — Print</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#f5f6f8;
-  --white:#ffffff;
-  --border:#e2e5ea;
-  --border-strong:#c8cdd6;
-  --text:#1a1d23;
-  --text-2:#4b5563;
-  --text-3:#9ca3af;
-  --accent:#1e3a5f;
-  --accent-soft:#eef2f7;
-  --green:#166534;
-  --green-bg:#f0fdf4;
-  --green-border:#bbf7d0;
-  --red:#991b1b;
-  --red-bg:#fef2f2;
-  --red-border:#fecaca;
-  --amber:#92400e;
-  --amber-bg:#fffbeb;
-  --amber-border:#fde68a;
-  --blue:#1e40af;
-  --blue-bg:#eff6ff;
-  --blue-border:#bfdbfe;
-  --radius:6px;
-  --radius-lg:10px;
-  --scan:#0ea5e9;
-  --scan-bg:#f0f9ff;
-  --scan-border:#bae6fd;
+  --navy:#0f2240;
+  --navy-mid:#1e3a5f;
+  --blue:#2563eb;
+  --blue-light:#dbeafe;
+  --green:#15803d;
+  --green-light:#dcfce7;
+  --amber:#b45309;
+  --amber-light:#fef3c7;
+  --red:#dc2626;
+  --red-light:#fee2e2;
+  --gray:#6b7280;
+  --gray-light:#f3f4f6;
+  --border:#e5e7eb;
+  --text:#111827;
 }
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#0f1117;
-    --white:#1a1d26;
-    --border:#2a2f3d;
-    --border-strong:#3d4454;
-    --text:#e8ecf0;
-    --text-2:#9ba3af;
-    --text-3:#4b5563;
-    --accent-soft:#1a2235;
-    --green-bg:#052e16;
-    --green-border:#166534;
-    --red-bg:#2d0a0a;
-    --red-border:#7f1d1d;
-    --amber-bg:#1c1007;
-    --amber-border:#78350f;
-    --blue-bg:#0d1b36;
-    --blue-border:#1e3a7f;
-  }
+
+/* ===== SCREEN UI ===== */
+body{
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  font-size:13px;
+  background:#f0f4f8;
+  color:var(--text);
+  min-height:100vh;
+  padding:24px 16px 48px;
 }
-body{font-family:'Inter',system-ui,sans-serif;font-size:13px;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
-.wrapper{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.screen-wrap{max-width:820px;margin:0 auto}
 
-/* TOP NAV */
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.topbar-left{display:flex;align-items:center;gap:10px}
-.brand{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)}
-.divider-v{width:1px;height:16px;background:var(--border-strong)}
-.page-title{font-size:13px;font-weight:500;color:var(--text)}
-.topbar-right{display:flex;gap:8px}
-.btn{font-family:inherit;font-size:12px;font-weight:500;padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border-strong);background:var(--white);color:var(--text-2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn-primary:hover{opacity:.88;color:#fff}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--navy);color:#fff;
+  padding:12px 20px;border-radius:8px 8px 0 0;
+  border-bottom:3px solid var(--blue);
+}
+.topbar-title{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.topbar-actions{display:flex;gap:8px}
+.btn{
+  font-family:inherit;font-size:12px;font-weight:600;
+  padding:7px 16px;border-radius:5px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:all .15s;
+}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-primary:hover{background:#1d4ed8}
 
-/* HEADER BLOCK */
-.header-block{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:20px}
-.header-icon{width:44px;height:44px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.header-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.header-text h1{font-size:16px;font-weight:600;color:var(--text);line-height:1.3}
-.header-text p{font-size:12px;color:var(--text-2);margin-top:2px}
-.header-meta{margin-left:auto;text-align:right;flex-shrink:0}
-.meta-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);font-weight:500}
-.meta-val{font-size:18px;font-weight:600;color:var(--accent)}
-.meta-sub{font-size:11px;color:var(--text-3)}
+.card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:0 0 8px 8px;padding:20px 24px;
+}
 
-/* PROGRESS ROW */
-.progress-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
-.prog-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;position:relative;overflow:hidden}
-.prog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--border);border-radius:0 0 var(--radius) var(--radius)}
-.prog-fill{position:absolute;bottom:0;left:0;height:3px;border-radius:0 0 0 0;background:var(--accent);transition:width .4s ease}
-.prog-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:4px}
-.prog-count{font-size:15px;font-weight:600;color:var(--text)}
-.prog-total{font-size:12px;font-weight:400;color:var(--text-3)}
-
-/* INFO SECTION */
-.section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden}
-.section-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--white)}
-.sec-badge{font-size:10px;font-weight:600;letter-spacing:.05em;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent);flex-shrink:0;text-transform:uppercase}
-.sec-title{font-size:13px;font-weight:600;color:var(--text)}
-.sec-prog{margin-left:auto;font-size:11px;color:var(--text-3);white-space:nowrap}
-.sec-prog strong{color:var(--text-2);font-weight:600}
-.section-body{padding:20px}
+/* INFO HEADER */
+.doc-header{
+  display:grid;grid-template-columns:1fr auto;gap:16px;
+  align-items:start;padding-bottom:14px;margin-bottom:14px;
+  border-bottom:2px solid var(--navy);
+}
+.doc-title{font-size:17px;font-weight:700;color:var(--navy);line-height:1.2}
+.doc-sub{font-size:11px;color:var(--gray);margin-top:3px}
+.doc-meta{text-align:right;font-size:11px;color:var(--gray);line-height:1.8}
+.doc-meta strong{color:var(--text);font-weight:600}
 
 /* INFO GRID */
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
-.field-label{font-size:11px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block}
-.field-input{width:100%;font-family:inherit;font-size:13px;padding:8px 11px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
-.field-input:focus{border-color:var(--accent)}
-.field-input::placeholder{color:var(--text-3)}
-.full{grid-column:1/-1}
-.pill-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid var(--border-strong);border-radius:100px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--bg);cursor:pointer;transition:all .15s;user-select:none}
-.pill:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.pill-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor;transition:all .15s;flex-shrink:0}
-.pill.active .pill-dot{background:rgba(255,255,255,.7);border-color:transparent}
-.note-box{grid-column:1/-1;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--blue);line-height:1.6}
-.note-box span{font-weight:600}
+.info-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);border-radius:6px;overflow:hidden;
+  margin-bottom:10px;
+}
+.info-cell{padding:8px 12px;border-right:1px solid var(--border)}
+.info-cell:last-child{border-right:none}
+.info-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray);margin-bottom:3px}
+.info-val{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--navy)}
+input.info-val{
+  border:none;outline:none;width:100%;background:transparent;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--navy);
+}
+input.info-val::placeholder{color:#d1d5db;font-weight:400}
+.pill-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.pill{
+  font-size:11px;font-weight:500;padding:3px 10px;
+  border:1px solid var(--border);border-radius:100px;
+  cursor:pointer;transition:all .12s;color:var(--gray);background:#f9fafb;
+  user-select:none;
+}
+.pill:hover{border-color:var(--navy-mid);color:var(--navy-mid)}
+.pill.active{background:var(--navy);border-color:var(--navy);color:#fff}
 
-/* CHECKLIST */
-.subsec{margin-bottom:18px}
-.subsec:last-child{margin-bottom:0}
-.subsec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.subsec-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.checks{display:flex;flex-direction:column;gap:5px}
-.ci{display:flex;align-items:center;gap:11px;padding:9px 13px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .15s;background:var(--bg);user-select:none}
-.ci:hover{border-color:var(--border-strong);background:var(--white)}
-.ci.done{background:var(--green-bg);border-color:var(--green-border)}
-.ci.done .ci-text{color:var(--text-3);text-decoration:line-through}
-.cbox{width:16px;height:16px;border:1.5px solid var(--border-strong);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--white)}
-.ci.done .cbox{background:var(--green);border-color:var(--green)}
-.cbox svg{display:none;width:9px;height:9px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.ci.done .cbox svg{display:block}
-.ci-text{font-size:13px;color:var(--text);transition:all .15s}
-.ci-num{margin-left:auto;font-size:10px;font-weight:500;color:var(--text-3);background:var(--white);border:1px solid var(--border);border-radius:3px;padding:1px 5px;flex-shrink:0}
-.ci.done .ci-num{display:none}
+.tujuan{
+  font-size:11px;color:#374151;
+  background:#f0f7ff;border-left:3px solid var(--blue);
+  padding:6px 12px;border-radius:0 4px 4px 0;margin-bottom:14px;
+}
 
-/* SECTION PROGRESS BAR */
-.sec-bar-wrap{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
-.sec-bar-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.sec-bar-label{font-size:11px;color:var(--text-3)}
-.sec-bar-pct{font-size:11px;font-weight:600;color:var(--text-2)}
-.bar{height:4px;background:var(--border);border-radius:100px;overflow:hidden}
-.bar-inner{height:100%;border-radius:100px;background:var(--accent);width:0%;transition:width .4s ease}
+/* CHECKLIST TABLE */
+.sec-title-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--navy);color:#fff;
+  padding:5px 12px;border-radius:5px 5px 0 0;margin-top:10px;
+}
+.sec-num{font-size:9px;font-weight:700;letter-spacing:.08em;background:rgba(255,255,255,.2);padding:1px 7px;border-radius:3px;margin-right:8px}
+.sec-name{font-size:11px;font-weight:600}
+.sec-count-badge{font-size:10px;font-weight:600;opacity:.8}
+
+table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-top:none;border-radius:0 0 5px 5px;overflow:hidden;margin-bottom:0}
+table tr{border-bottom:1px solid var(--border)}
+table tr:last-child{border-bottom:none}
+table tr:hover{background:#f9fafb}
+td{padding:6px 10px;vertical-align:middle}
+.td-num{width:24px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);text-align:center}
+.td-check{width:20px;text-align:center}
+.td-item{font-size:12px;color:var(--text)}
+.td-sub{font-size:10px;color:var(--gray);font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding-top:2px;padding-bottom:2px;background:var(--gray-light)}
+.checkbox{
+  width:15px;height:15px;border:1.5px solid #9ca3af;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .12s;background:#fff;flex-shrink:0;margin:0 auto;
+}
+.checkbox.checked{background:var(--green);border-color:var(--green)}
+.checkbox.checked svg{display:block}
+.checkbox svg{display:none;width:9px;height:9px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.td-item.done-item{text-decoration:line-through;color:#9ca3af}
+.row-done{background:#f0fdf4 !important}
+
+/* PROGRESS ROW */
+.progress-row{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
+  margin:12px 0;
+}
+.prog-box{
+  border:1px solid var(--border);border-radius:5px;padding:8px 10px;
+  background:#fff;position:relative;overflow:hidden;
+}
+.prog-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--border)}
+.prog-fill{position:absolute;bottom:0;left:0;height:3px;background:var(--navy);transition:width .35s ease}
+.prog-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:3px}
+.prog-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--navy)}
+.prog-total{font-size:11px;color:var(--gray);font-weight:400}
+
+/* OVERALL */
+.overall-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--navy);color:#fff;
+  border-radius:6px;padding:10px 16px;margin-bottom:10px;
+}
+.overall-label{font-size:11px;font-weight:600;opacity:.8}
+.overall-pct{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700}
+.overall-count{font-size:11px;opacity:.7}
+.bar-wrap{flex:1;margin:0 16px;background:rgba(255,255,255,.2);border-radius:100px;height:6px;overflow:hidden}
+.bar-inner-main{height:100%;background:#fff;border-radius:100px;width:0%;transition:width .4s ease}
 
 /* STATUS */
-.status-block{border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;text-align:center;margin-bottom:16px;background:var(--white);transition:all .3s}
-.status-block.ready{background:var(--green-bg);border-color:var(--green-border)}
-.status-block.hold{background:var(--red-bg);border-color:var(--red-border)}
-.status-block.pending{background:var(--amber-bg);border-color:var(--amber-border)}
-.status-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
-.status-block .status-pill{background:var(--border);color:var(--text-3)}
-.status-block.ready .status-pill{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
-.status-block.hold .status-pill{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
-.status-block.pending .status-pill{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
-.status-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
-.status-main{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
-.status-block.ready .status-main{color:var(--green)}
-.status-block.hold .status-main{color:var(--red)}
-.status-sub-txt{font-size:12px;color:var(--text-3)}
-.action-row{display:flex;gap:8px;justify-content:flex-end}
-
-/* SCAN */
-.scan-btn{font-family:inherit;font-size:12px;font-weight:500;padding:7px 12px;border-radius:var(--radius);border:1px solid var(--scan-border);background:var(--scan-bg);color:var(--scan);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap;flex-shrink:0}
-.scan-btn:hover{background:var(--scan);color:#fff;border-color:var(--scan)}
-.scan-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.field-row{display:flex;gap:6px;align-items:center}
-.field-row .field-input{flex:1;min-width:0}
-.scan-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;background:var(--scan-bg);color:var(--scan);border:1px solid var(--scan-border);margin-left:6px;letter-spacing:.03em}
-
-/* MODAL OVERLAY */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);width:360px;max-width:94vw;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18)}
-.modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
-.modal-head h3{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
-.modal-head h3 svg{width:16px;height:16px;stroke:var(--scan);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.modal-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-3);line-height:1;padding:2px 6px;border-radius:4px}
-.modal-close:hover{background:var(--bg);color:var(--text)}
-.modal-body{padding:18px}
-.scan-target-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:10px}
-.scan-target-info{font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:6px}
-.scan-target-info span{background:var(--accent);color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.04em}
-.cam-area{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#000;min-height:200px;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:12px}
-#reader{width:100%}
-.cam-placeholder{text-align:center;color:var(--text-3);font-size:12px;padding:40px 20px}
-.cam-placeholder svg{width:36px;height:36px;stroke:var(--text-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin-bottom:8px;display:block;margin:0 auto 8px}
-.scan-divider{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:11px;color:var(--text-3)}
-.scan-divider::before,.scan-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.manual-row{display:flex;gap:6px}
-.manual-row input{flex:1;font-family:inherit;font-size:13px;padding:8px 11px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--bg);color:var(--text);outline:none}
-.manual-row input:focus{border-color:var(--scan)}
-.btn-scan-confirm{font-family:inherit;font-size:12px;font-weight:600;padding:8px 16px;border-radius:var(--radius);border:none;background:var(--accent);color:#fff;cursor:pointer;white-space:nowrap}
-.btn-scan-confirm:hover{opacity:.88}
-.scan-result-box{display:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--green);margin-top:10px;align-items:center;gap:8px}
-.scan-result-box.show{display:flex}
-.scan-result-box svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.cam-mode-row{display:flex;gap:6px;margin-bottom:12px}
-.cam-mode-btn{flex:1;font-family:inherit;font-size:12px;font-weight:500;padding:7px 10px;border-radius:var(--radius);border:1px solid var(--border-strong);background:var(--bg);color:var(--text-2);cursor:pointer;transition:all .15s}
-.cam-mode-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.hw-hint{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--amber);line-height:1.6;margin-bottom:12px}
-.hw-hint strong{font-weight:600}
-
-@media print{
-  body{background:#fff}
-  .topbar-right,.action-row,.modal-overlay{display:none}
-  .ci{background:#fafafa;border:1px solid #e5e7eb}
-  .ci.done{background:#f0fdf4}
-  .section,.header-block,.status-block,.prog-card{break-inside:avoid}
-  .scan-btn,.scan-tag{display:none}
+.status-box{
+  border:1px solid var(--border);border-radius:6px;padding:12px 16px;
+  margin-top:10px;text-align:center;transition:all .3s;background:#fff;
 }
+.status-box.ready{background:var(--green-light);border-color:#86efac}
+.status-box.hold{background:var(--red-light);border-color:#fca5a5}
+.status-box.in-progress{background:var(--amber-light);border-color:#fcd34d}
+.status-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 14px;border-radius:100px;font-size:11px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;
+  border:1px solid currentColor;
+}
+.status-box.ready .status-badge{color:var(--green)}
+.status-box.hold .status-badge{color:var(--red)}
+.status-box.in-progress .status-badge{color:var(--amber)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.status-main-txt{font-size:13px;font-weight:600;margin-bottom:2px}
+.status-box.ready .status-main-txt{color:var(--green)}
+.status-box.hold .status-main-txt{color:var(--red)}
+.status-box.in-progress .status-main-txt{color:var(--amber)}
+.status-sub-txt{font-size:11px;color:var(--gray)}
+
+.action-row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.btn-screen{
+  font-family:inherit;font-size:12px;font-weight:600;padding:8px 18px;
+  border-radius:5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-reset{background:#f3f4f6;border:1px solid var(--border);color:var(--gray)}
+.btn-reset:hover{background:#e5e7eb}
+.btn-print-main{background:var(--navy);border:none;color:#fff}
+.btn-print-main:hover{background:var(--navy-mid)}
+
+/* ===== PRINT STYLES ===== */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff!important;padding:0!important}
+  .screen-wrap{max-width:100%!important}
+  .topbar,.action-row,.pill-row,.tujuan-screen,.progress-row,.overall-row,.status-box{display:none!important}
+  .card{border:none!important;border-radius:0!important;padding:0!important}
+
+  /* show print-only elements */
+  .print-only{display:block!important}
+  .print-header{display:flex!important}
+  .print-info{display:grid!important}
+  .print-tujuan{display:block!important}
+
+  input.info-val{color:#111!important}
+  table{font-size:9.5px!important}
+  td{padding:4px 8px!important}
+  .sec-title-bar{padding:4px 10px!important}
+  .sec-name{font-size:10px!important}
+}
+@page{size:A4;margin:12mm 14mm}
+
+/* Print-only elements hidden on screen */
+.print-only{display:none}
+.print-header{display:none}
+.print-info{display:none}
+.print-tujuan{display:none}
 </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="screen-wrap">
 
   <!-- TOPBAR -->
   <div class="topbar">
-    <div class="topbar-left">
-      <span class="brand">Gudang &amp; QC</span>
-      <div class="divider-v"></div>
-      <span class="page-title">SOP Checklist — Pengecekan Mesin Sebelum Pengiriman</span>
-    </div>
-    <div class="topbar-right">
-      <button class="btn" onclick="resetAll()">Reset</button>
-      <button class="btn btn-primary" onclick="window.print()">Cetak</button>
+    <div class="topbar-title">Gudang &amp; QC — SOP Checklist Mesin</div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="resetAll()">↺ Reset</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨 Cetak</button>
     </div>
   </div>
 
-  <!-- HEADER -->
-  <div class="header-block">
-    <div class="header-icon">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2m2 0h6M7 11h4"/></svg>
-    </div>
-    <div class="header-text">
-      <h1>Pengecekan Mesin Sebelum Dibawa Teknisi</h1>
-      <p>Pastikan seluruh item terverifikasi sebelum mesin dikirimkan ke lokasi customer</p>
-    </div>
-    <div class="header-meta">
-      <div class="meta-label">Progress</div>
-      <div class="meta-val" id="overall-pct">0%</div>
-      <div class="meta-sub" id="overall-count">0 / 30 item</div>
-    </div>
-  </div>
+  <div class="card">
 
-  <!-- PROGRESS PER SECTION -->
-  <div class="progress-row">
-    <div class="prog-card"><div class="prog-label">Pengecekan Awal</div><div class="prog-count" id="pc1">0<span class="prog-total">/9</span></div><div class="prog-fill" id="pf1"></div></div>
-    <div class="prog-card"><div class="prog-label">Fungsi Mesin</div><div class="prog-count" id="pc2">0<span class="prog-total">/4</span></div><div class="prog-fill" id="pf2"></div></div>
-    <div class="prog-card"><div class="prog-label">Kelengkapan</div><div class="prog-count" id="pc3">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf3"></div></div>
-    <div class="prog-card"><div class="prog-label">Pengiriman</div><div class="prog-count" id="pc4">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf4"></div></div>
-    <div class="prog-card"><div class="prog-label">Serah Terima</div><div class="prog-count" id="pc5">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf5"></div></div>
-  </div>
-
-  <!-- INFO MESIN -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">Info</div>
-      <span class="sec-title">Informasi Mesin</span>
-    </div>
-    <div class="section-body">
-      <div class="info-grid">
-        <div>
-          <label class="field-label">Nama Mesin <span class="scan-tag">Scan</span></label>
-          <div class="field-row">
-            <input type="text" id="inp-nama" class="field-input" placeholder="Masukkan atau scan nama mesin">
-            <button class="scan-btn" onclick="openScan('nama')" title="Scan Barcode Nama Mesin">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
-              Scan
-            </button>
-          </div>
-        </div>
-        <div>
-          <label class="field-label">ID Mesin <span class="scan-tag">Scan</span></label>
-          <div class="field-row">
-            <input type="text" id="inp-id" class="field-input" placeholder="Masukkan atau scan ID mesin">
-            <button class="scan-btn" onclick="openScan('id')" title="Scan Barcode ID Mesin">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
-              Scan
-            </button>
-          </div>
-        </div>
-        <div>
-          <label class="field-label">Type / Model</label>
-          <div class="pill-group" id="type-grp">
-            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Large</span>
-            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Medium</span>
-            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Small</span>
-            <span class="pill" data-g="type"><span class="pill-dot"></span>LDX Large</span>
-            <span class="pill" data-g="type"><span class="pill-dot"></span>LDX Medium</span>
-          </div>
-        </div>
-        <div>
-          <label class="field-label">Nama Teknisi</label>
-          <div class="pill-group" id="tek-grp">
-            <span class="pill" data-g="tek"><span class="pill-dot"></span>Asep</span>
-            <span class="pill" data-g="tek"><span class="pill-dot"></span>Rezky</span>
-            <span class="pill" data-g="tek"><span class="pill-dot"></span>Mahendra</span>
-            <span class="pill" data-g="tek"><span class="pill-dot"></span>Rahmat</span>
-          </div>
-        </div>
-        <div class="full">
-          <label class="field-label">PIC Gudang / QC</label>
-          <div class="pill-group" id="pic-grp">
-            <span class="pill" data-g="pic"><span class="pill-dot"></span>Nana</span>
-            <span class="pill" data-g="pic"><span class="pill-dot"></span>Rahmat</span>
-          </div>
-        </div>
-        <div class="note-box"><span>Tujuan:</span> Memastikan mesin dalam kondisi aman, lengkap, dan siap dipasang di lokasi customer.</div>
+    <!-- PRINT HEADER (only shown on print) -->
+    <div class="print-header" style="align-items:flex-start;justify-content:space-between;border-bottom:2px solid #0f2240;padding-bottom:8px;margin-bottom:10px">
+      <div>
+        <div style="font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#6b7280;margin-bottom:2px">Gudang &amp; QC — SOP Pengecekan Mesin</div>
+        <div style="font-size:15px;font-weight:700;color:#0f2240">Checklist Pengecekan Mesin Sebelum Dibawa Teknisi</div>
+      </div>
+      <div style="text-align:right;font-size:9px;color:#6b7280;line-height:1.8">
+        Tanggal: <strong id="p-tgl" style="color:#111">–</strong><br>
+        Waktu: <strong id="p-wkt" style="color:#111">–</strong>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 1 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">01</div>
-      <span class="sec-title">Pengecekan Awal Unit</span>
-      <span class="sec-prog" id="sp1"><strong>0</strong> / 9 item</span>
-    </div>
-    <div class="section-body">
-      <div class="subsec">
-        <div class="subsec-label">Pemeriksaan Fisik</div>
-        <div class="checks" data-s="1">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Body mesin tidak kusam / kotor</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Lampu menyala normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Kabel dalam kondisi baik</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Stiker mesin aman</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">ID Mesin sesuai</span></div>
-        </div>
+    <!-- SCREEN DOC HEADER -->
+    <div class="doc-header">
+      <div>
+        <div class="doc-title">Checklist Pengecekan Mesin Sebelum Dibawa Teknisi</div>
+        <div class="doc-sub">Pastikan seluruh item terverifikasi sebelum mesin dikirimkan ke lokasi customer</div>
       </div>
-      <div class="subsec">
-        <div class="subsec-label">Test Running</div>
-        <div class="checks" data-s="1">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin dapat menyala normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Test Rent normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Test Return normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Semua fungsi berjalan</span></div>
-        </div>
-      </div>
-      <div class="sec-bar-wrap">
-        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 1 — Pengecekan Awal</span><span class="sec-bar-pct" id="bp1">0%</span></div>
-        <div class="bar"><div class="bar-inner" id="bi1"></div></div>
+      <div class="doc-meta">
+        Progress: <strong id="overall-pct-label">0%</strong><br>
+        <span id="overall-count-label" style="font-size:10px">0 / 30 item</span>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 2 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">02</div>
-      <span class="sec-title">Pemeriksaan Fungsi Mesin</span>
-      <span class="sec-prog" id="sp2"><strong>0</strong> / 4 item</span>
-    </div>
-    <div class="section-body">
-      <div class="subsec">
-        <div class="subsec-label">Pengujian Operasional</div>
-        <div class="checks" data-s="2">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tombol start/stop berfungsi</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Sensor barcode bekerja normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Transaksi normal</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Nama lokasi mesin sesuai</span></div>
+    <!-- INFO MESIN -->
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="info-lbl">Nama Mesin</div>
+        <input class="info-val" id="inp-nama" placeholder="— masukkan —">
+      </div>
+      <div class="info-cell">
+        <div class="info-lbl">ID Mesin</div>
+        <input class="info-val" id="inp-id" placeholder="— masukkan —">
+      </div>
+      <div class="info-cell">
+        <div class="info-lbl">Type / Model</div>
+        <div class="pill-row" id="grp-type">
+          <span class="pill" data-g="type">Nas L</span>
+          <span class="pill" data-g="type">Nas M</span>
+          <span class="pill" data-g="type">Nas S</span>
+          <span class="pill" data-g="type">LDX L</span>
+          <span class="pill" data-g="type">LDX M</span>
         </div>
       </div>
-      <div class="sec-bar-wrap">
-        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 2 — Fungsi Mesin</span><span class="sec-bar-pct" id="bp2">0%</span></div>
-        <div class="bar"><div class="bar-inner" id="bi2"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECTION 3 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">03</div>
-      <span class="sec-title">Pemeriksaan Kelengkapan Sparepart &amp; Accessories</span>
-      <span class="sec-prog" id="sp3"><strong>0</strong> / 7 item</span>
-    </div>
-    <div class="section-body">
-      <div class="subsec">
-        <div class="subsec-label">Sparepart &amp; Accessories</div>
-        <div class="checks" data-s="3">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Standing tersedia</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Equipment pendukung tersedia</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tools pendukung tersedia</span></div>
+      <div class="info-cell">
+        <div class="info-lbl">Teknisi</div>
+        <div class="pill-row" id="grp-tek">
+          <span class="pill" data-g="tek">Asep</span>
+          <span class="pill" data-g="tek">Rezky</span>
+          <span class="pill" data-g="tek">Mahendra</span>
+          <span class="pill" data-g="tek">Rahmat</span>
         </div>
       </div>
-      <div class="subsec">
-        <div class="subsec-label">Dokumen</div>
-        <div class="checks" data-s="3">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Form QC sudah diisi</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Surat jalan tersedia</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Data customer lengkap</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Lokasi pemasangan sudah dikonfirmasi</span></div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr">
+      <div class="info-cell" style="border-right:1px solid var(--border)">
+        <div class="info-lbl">PIC Gudang / QC</div>
+        <div class="pill-row" id="grp-pic">
+          <span class="pill" data-g="pic">Nana</span>
+          <span class="pill" data-g="pic">Rahmat</span>
         </div>
       </div>
-      <div class="sec-bar-wrap">
-        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 3 — Kelengkapan</span><span class="sec-bar-pct" id="bp3">0%</span></div>
-        <div class="bar"><div class="bar-inner" id="bi3"></div></div>
+      <div class="info-cell">
+        <div class="info-lbl">Catatan</div>
+        <input class="info-val" id="inp-note" placeholder="— catatan tambahan —" style="font-weight:400;font-family:'IBM Plex Sans',sans-serif;font-size:12px">
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 4 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">04</div>
-      <span class="sec-title">Persiapan Pengiriman</span>
-      <span class="sec-prog" id="sp4"><strong>0</strong> / 7 item</span>
+    <div class="tujuan">
+      <strong>Tujuan:</strong> Memastikan mesin dalam kondisi aman, lengkap, dan siap dipasang di lokasi customer.
     </div>
-    <div class="section-body">
-      <div class="subsec">
-        <div class="subsec-label">Packing</div>
-        <div class="checks" data-s="4">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin dipacking dengan aman</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Menggunakan pelindung tambahan</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Label nama mesin dipasang</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Standing dipacking dengan aman</span></div>
-        </div>
-      </div>
-      <div class="subsec">
-        <div class="subsec-label">Transportasi</div>
-        <div class="checks" data-s="4">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Kendaraan pengangkut siap</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin sudah diikat dengan aman</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Jadwal keberangkatan sesuai</span></div>
-        </div>
-      </div>
-      <div class="sec-bar-wrap">
-        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 4 — Pengiriman</span><span class="sec-bar-pct" id="bp4">0%</span></div>
-        <div class="bar"><div class="bar-inner" id="bi4"></div></div>
-      </div>
+
+    <!-- PROGRESS ROW -->
+    <div class="progress-row">
+      <div class="prog-box"><div class="prog-lbl">Pengecekan Awal</div><div class="prog-val" id="pc1">0<span class="prog-total">/9</span></div><div class="prog-fill" id="pf1" style="width:0%"></div></div>
+      <div class="prog-box"><div class="prog-lbl">Fungsi Mesin</div><div class="prog-val" id="pc2">0<span class="prog-total">/4</span></div><div class="prog-fill" id="pf2" style="width:0%"></div></div>
+      <div class="prog-box"><div class="prog-lbl">Kelengkapan</div><div class="prog-val" id="pc3">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf3" style="width:0%"></div></div>
+      <div class="prog-box"><div class="prog-lbl">Pengiriman</div><div class="prog-val" id="pc4">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf4" style="width:0%"></div></div>
+      <div class="prog-box"><div class="prog-lbl">Serah Terima</div><div class="prog-val" id="pc5">0<span class="prog-total">/3</span></div><div class="prog-fill" id="pf5" style="width:0%"></div></div>
     </div>
-  </div>
 
-  <!-- SECTION 5 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-badge">05</div>
-      <span class="sec-title">Serah Terima ke Teknisi</span>
-      <span class="sec-prog" id="sp5"><strong>0</strong> / 7 item</span>
+    <!-- OVERALL BAR -->
+    <div class="overall-row">
+      <div>
+        <div class="overall-label">Total Progress</div>
+        <div class="overall-count" id="overall-count">0 / 30 item</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-inner-main" id="main-bar"></div></div>
+      <div class="overall-pct" id="overall-pct">0%</div>
     </div>
-    <div class="section-body">
-      <div class="subsec">
-        <div class="subsec-label">Briefing Teknisi</div>
-        <div class="checks" data-s="5">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi menerima informasi lokasi</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi memahami prosedur instalasi</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi menerima kontak customer</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi membawa tools lengkap</span></div>
-        </div>
-      </div>
-      <div class="subsec">
-        <div class="subsec-label">Final Check</div>
-        <div class="checks" data-s="5">
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin siap dibawa</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tidak ada kendala pending</span></div>
-          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Approval supervisor selesai</span></div>
-        </div>
-      </div>
-      <div class="sec-bar-wrap">
-        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 5 — Serah Terima</span><span class="sec-bar-pct" id="bp5">0%</span></div>
-        <div class="bar"><div class="bar-inner" id="bi5"></div></div>
-      </div>
+
+    <!-- ===== SECTION 1 ===== -->
+    <div class="sec-title-bar">
+      <div><span class="sec-num">01</span><span class="sec-name">Pengecekan Awal Unit</span></div>
+      <span class="sec-count-badge" id="sp1">0 / 9</span>
     </div>
-  </div>
+    <table data-s="1">
+      <tr><td colspan="3" class="td-sub">Pemeriksaan Fisik</td></tr>
+      <tr><td class="td-num">1</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Body mesin tidak kusam / kotor</td></tr>
+      <tr><td class="td-num">2</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Lampu menyala normal</td></tr>
+      <tr><td class="td-num">3</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Kabel dalam kondisi baik</td></tr>
+      <tr><td class="td-num">4</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Stiker mesin aman &amp; terbaca</td></tr>
+      <tr><td class="td-num">5</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">ID Mesin sesuai</td></tr>
+      <tr><td colspan="3" class="td-sub">Test Running</td></tr>
+      <tr><td class="td-num">6</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Mesin dapat menyala normal</td></tr>
+      <tr><td class="td-num">7</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Test Rent normal</td></tr>
+      <tr><td class="td-num">8</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Test Return normal</td></tr>
+      <tr><td class="td-num">9</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Semua fungsi berjalan</td></tr>
+    </table>
 
-  <!-- STATUS AKHIR -->
-  <div class="status-block" id="status-block">
-    <div><span class="status-pill" id="status-pill"><span class="status-dot"></span><span id="status-label">Belum dimulai</span></span></div>
-    <div class="status-main" id="status-main">Status Akhir Pengiriman</div>
-    <div class="status-sub-txt" id="status-sub">Lengkapi semua checklist untuk menentukan status akhir mesin</div>
-  </div>
-
-  <div class="action-row">
-    <button class="btn" onclick="resetAll()">Reset Semua</button>
-    <button class="btn btn-primary" onclick="window.print()">Cetak / Print</button>
-  </div>
-
-</div>
-
-<!-- SCAN MODAL -->
-<div class="modal-overlay" id="scan-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <h3>
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
-        Scan Barcode
-      </h3>
-      <button class="modal-close" onclick="closeScan()">&#x2715;</button>
+    <!-- ===== SECTION 2 ===== -->
+    <div class="sec-title-bar" style="margin-top:8px">
+      <div><span class="sec-num">02</span><span class="sec-name">Pemeriksaan Fungsi Mesin</span></div>
+      <span class="sec-count-badge" id="sp2">0 / 4</span>
     </div>
-    <div class="modal-body">
-      <div class="scan-target-label">Input Target</div>
-      <div class="scan-target-info" id="scan-target-info">
-        <span id="scan-target-badge">–</span>
-        <span id="scan-target-name">–</span>
-      </div>
+    <table data-s="2">
+      <tr><td colspan="3" class="td-sub">Pengujian Operasional</td></tr>
+      <tr><td class="td-num">1</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Tombol start/stop berfungsi</td></tr>
+      <tr><td class="td-num">2</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Sensor barcode bekerja normal</td></tr>
+      <tr><td class="td-num">3</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Transaksi normal</td></tr>
+      <tr><td class="td-num">4</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Nama lokasi mesin sesuai</td></tr>
+    </table>
 
-      <div class="cam-mode-row">
-        <button class="cam-mode-btn active" id="btn-cam" onclick="switchMode('cam')">Kamera</button>
-        <button class="cam-mode-btn" id="btn-hw" onclick="switchMode('hw')">Scanner HW</button>
-      </div>
+    <!-- ===== SECTION 3 ===== -->
+    <div class="sec-title-bar" style="margin-top:8px">
+      <div><span class="sec-num">03</span><span class="sec-name">Kelengkapan Sparepart &amp; Accessories</span></div>
+      <span class="sec-count-badge" id="sp3">0 / 7</span>
+    </div>
+    <table data-s="3">
+      <tr><td colspan="3" class="td-sub">Sparepart &amp; Accessories</td></tr>
+      <tr><td class="td-num">1</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Standing tersedia</td></tr>
+      <tr><td class="td-num">2</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Equipment pendukung tersedia</td></tr>
+      <tr><td class="td-num">3</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Tools pendukung tersedia</td></tr>
+      <tr><td colspan="3" class="td-sub">Dokumen</td></tr>
+      <tr><td class="td-num">4</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Form QC sudah diisi</td></tr>
+      <tr><td class="td-num">5</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Surat jalan tersedia</td></tr>
+      <tr><td class="td-num">6</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Data customer lengkap</td></tr>
+      <tr><td class="td-num">7</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Lokasi pemasangan sudah dikonfirmasi</td></tr>
+    </table>
 
-      <!-- CAMERA MODE -->
-      <div id="mode-cam">
-        <div class="cam-area">
-          <div id="reader"></div>
-          <div class="cam-placeholder" id="cam-placeholder">
-            <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v4M9 3H5a2 2 0 0 0-2 2v4M15 21h4a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-            Klik tombol di bawah untuk<br>mengaktifkan kamera
-          </div>
-        </div>
-        <button class="btn btn-primary" id="start-cam-btn" onclick="startCamera()" style="width:100%;justify-content:center;margin-bottom:10px">Aktifkan Kamera</button>
-      </div>
+    <!-- ===== SECTION 4 ===== -->
+    <div class="sec-title-bar" style="margin-top:8px">
+      <div><span class="sec-num">04</span><span class="sec-name">Persiapan Pengiriman</span></div>
+      <span class="sec-count-badge" id="sp4">0 / 7</span>
+    </div>
+    <table data-s="4">
+      <tr><td colspan="3" class="td-sub">Packing</td></tr>
+      <tr><td class="td-num">1</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Mesin dipacking dengan aman</td></tr>
+      <tr><td class="td-num">2</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Menggunakan pelindung tambahan</td></tr>
+      <tr><td class="td-num">3</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Label nama mesin dipasang</td></tr>
+      <tr><td class="td-num">4</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Standing dipacking dengan aman</td></tr>
+      <tr><td colspan="3" class="td-sub">Transportasi</td></tr>
+      <tr><td class="td-num">5</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Kendaraan pengangkut siap</td></tr>
+      <tr><td class="td-num">6</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Mesin sudah diikat dengan aman</td></tr>
+      <tr><td class="td-num">7</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Jadwal keberangkatan sesuai</td></tr>
+    </table>
 
-      <!-- HW SCANNER MODE -->
-      <div id="mode-hw" style="display:none">
-        <div class="hw-hint">
-          <strong>Scanner USB / Bluetooth</strong><br>
-          Klik pada field di bawah lalu arahkan scanner ke barcode. Nilai akan otomatis terisi saat scanner mengirim data.
-        </div>
-        <div class="manual-row" style="margin-bottom:0">
-          <input type="text" id="hw-input" placeholder="Fokus di sini, lalu scan barcode..." autofocus>
-          <button class="btn-scan-confirm" onclick="confirmHW()">Terapkan</button>
-        </div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:6px">Scanner HW mengirim Enter otomatis — nilai langsung terapkan.</div>
-      </div>
+    <!-- ===== SECTION 5 ===== -->
+    <div class="sec-title-bar" style="margin-top:8px">
+      <div><span class="sec-num">05</span><span class="sec-name">Serah Terima ke Teknisi</span></div>
+      <span class="sec-count-badge" id="sp5">0 / 7</span>
+    </div>
+    <table data-s="5">
+      <tr><td colspan="3" class="td-sub">Briefing Teknisi</td></tr>
+      <tr><td class="td-num">1</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Teknisi menerima informasi lokasi</td></tr>
+      <tr><td class="td-num">2</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Teknisi memahami prosedur instalasi</td></tr>
+      <tr><td class="td-num">3</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Teknisi menerima kontak customer</td></tr>
+      <tr><td class="td-num">4</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Teknisi membawa tools lengkap</td></tr>
+      <tr><td colspan="3" class="td-sub">Final Check</td></tr>
+      <tr><td class="td-num">5</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Mesin siap dibawa</td></tr>
+      <tr><td class="td-num">6</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Tidak ada kendala pending</td></tr>
+      <tr><td class="td-num">7</td><td class="td-check"><div class="checkbox" onclick="tick(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div></td><td class="td-item">Approval supervisor selesai</td></tr>
+    </table>
 
-      <div class="scan-divider">atau input manual</div>
-      <div class="manual-row">
-        <input type="text" id="manual-input" placeholder="Ketik nilai secara manual...">
-        <button class="btn-scan-confirm" onclick="confirmManual()">Terapkan</button>
+    <!-- ===== RINGKASAN & KESIMPULAN ===== -->
+    <div style="margin-top:10px;border:1px solid var(--border);border-radius:6px;overflow:hidden">
+      <div style="background:var(--navy);color:#fff;padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Ringkasan &amp; Kesimpulan</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border)">
+        <div style="padding:8px 12px;border-right:1px solid var(--border)"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:2px">Pengecekan Awal</div><div id="sum1" style="font-size:11px;font-weight:600;color:var(--navy)">0 / 9</div></div>
+        <div style="padding:8px 12px;border-right:1px solid var(--border)"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:2px">Fungsi Mesin</div><div id="sum2" style="font-size:11px;font-weight:600;color:var(--navy)">0 / 4</div></div>
+        <div style="padding:8px 12px;border-right:1px solid var(--border)"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:2px">Kelengkapan</div><div id="sum3" style="font-size:11px;font-weight:600;color:var(--navy)">0 / 7</div></div>
+        <div style="padding:8px 12px;border-right:1px solid var(--border)"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:2px">Pengiriman</div><div id="sum4" style="font-size:11px;font-weight:600;color:var(--navy)">0 / 7</div></div>
+        <div style="padding:8px 12px"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:2px">Serah Terima</div><div id="sum5" style="font-size:11px;font-weight:600;color:var(--navy)">0 / 7</div></div>
       </div>
-      <div class="scan-result-box" id="scan-result-box">
-        <svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg>
-        <span id="scan-result-txt">Berhasil discan</span>
+      <div style="padding:10px 14px">
+        <div id="conclusion-box" style="font-size:12px;color:var(--gray)">Lengkapi seluruh checklist untuk mendapatkan kesimpulan status mesin.</div>
       </div>
     </div>
+
+    <!-- TANDA TANGAN -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px">
+      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">PIC Gudang / QC</div>
+        <div id="sign-pic" style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">Teknisi Penerima</div>
+        <div id="sign-tek" style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">Supervisor / Approval</div>
+        <div style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+      </div>
+    </div>
+
+    <!-- STATUS AKHIR (screen only) -->
+    <div class="status-box" id="status-box" style="margin-top:10px">
+      <div><span class="status-badge" id="status-badge"><span class="status-dot"></span><span id="status-lbl">Belum Dimulai</span></span></div>
+      <div class="status-main-txt" id="status-main">Status Akhir Pengiriman</div>
+      <div class="status-sub-txt" id="status-sub">Lengkapi semua checklist untuk menentukan status akhir mesin</div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-screen btn-reset" onclick="resetAll()">↺ Reset Semua</button>
+      <button class="btn-screen btn-print-main" onclick="window.print()">🖨 Cetak / Print</button>
+    </div>
+
   </div>
 </div>
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
 <script>
-const TOTAL=30;
-let scanTarget=null;
-let html5QrCode=null;
-let camRunning=false;
-let currentMode='cam';
+const TOTALS=[9,4,7,7,7];
+const TOTAL=TOTALS.reduce((a,b)=>a+b,0);
 
-function tick(el){el.classList.toggle('done');upd()}
-function upd(){
-  const done=document.querySelectorAll('.ci.done').length;
-  const pct=Math.round(done/TOTAL*100);
-  document.getElementById('overall-pct').textContent=pct+'%';
-  document.getElementById('overall-count').textContent=done+' / '+TOTAL+' item';
-  for(let s=1;s<=5;s++){
-    const items=document.querySelectorAll('[data-s="'+s+'"] .ci');
-    const d=document.querySelectorAll('[data-s="'+s+'"] .ci.done').length;
-    const t=items.length;
-    const p=t?Math.round(d/t*100):0;
-    document.getElementById('pc'+s).innerHTML=d+'<span class="prog-total">/'+t+'</span>';
-    document.getElementById('pf'+s).style.width=p+'%';
-    document.getElementById('sp'+s).innerHTML='<strong>'+d+'</strong> / '+t+' item';
-    document.getElementById('bp'+s).textContent=p+'%';
-    document.getElementById('bi'+s).style.width=p+'%';
-  }
-  const sb=document.getElementById('status-block');
-  const sl=document.getElementById('status-label');
-  const sm=document.getElementById('status-main');
-  const ss=document.getElementById('status-sub');
-  sb.className='status-block';
-  if(done===TOTAL){
-    sb.classList.add('ready');
-    sl.textContent='Ready to Install';
-    sm.textContent='Mesin siap dikirimkan ke lokasi customer';
-    ss.textContent='Semua '+TOTAL+' item telah diverifikasi dan dinyatakan lolos pengecekan';
-  } else if(done>0){
-    sb.classList.add('hold');
-    sl.textContent='Hold — Perlu Perbaikan';
-    sm.textContent='Masih ada item yang belum diperiksa';
-    ss.textContent=(TOTAL-done)+' item belum dicentang — selesaikan seluruh checklist sebelum pengiriman';
+function tick(box){
+  box.classList.toggle('checked');
+  const row=box.closest('tr');
+  const td=row.querySelector('.td-item');
+  if(box.classList.contains('checked')){
+    row.classList.add('row-done');
+    td.classList.add('done-item');
   } else {
-    sl.textContent='Belum dimulai';
-    sm.textContent='Status Akhir Pengiriman';
-    ss.textContent='Lengkapi semua checklist untuk menentukan status akhir mesin';
+    row.classList.remove('row-done');
+    td.classList.remove('done-item');
   }
+  upd();
 }
 
+function upd(){
+  let total=0;
+  for(let s=1;s<=5;s++){
+    const tbl=document.querySelector('table[data-s="'+s+'"]');
+    const done=tbl.querySelectorAll('.checkbox.checked').length;
+    const t=TOTALS[s-1];
+    total+=done;
+    document.getElementById('pc'+s).innerHTML=done+'<span class="prog-total">/'+t+'</span>';
+    document.getElementById('pf'+s).style.width=Math.round(done/t*100)+'%';
+    document.getElementById('sp'+s).textContent=done+' / '+t;
+    document.getElementById('sum'+s).textContent=done+' / '+t;
+  }
+
+  const pct=Math.round(total/TOTAL*100);
+  document.getElementById('overall-pct').textContent=pct+'%';
+  document.getElementById('overall-pct-label').textContent=pct+'%';
+  document.getElementById('overall-count').textContent=total+' / '+TOTAL+' item';
+  document.getElementById('overall-count-label').textContent=total+' / '+TOTAL+' item';
+  document.getElementById('main-bar').style.width=pct+'%';
+
+  // Conclusion
+  const sb=document.getElementById('status-box');
+  const lbl=document.getElementById('status-lbl');
+  const main=document.getElementById('status-main');
+  const sub=document.getElementById('status-sub');
+  const concBox=document.getElementById('conclusion-box');
+  sb.className='status-box';
+
+  if(total===TOTAL){
+    sb.classList.add('ready');
+    lbl.textContent='✓ Ready to Install';
+    main.textContent='Mesin siap dikirimkan ke lokasi customer';
+    sub.textContent='Semua '+TOTAL+' item telah diverifikasi dan dinyatakan lolos pengecekan';
+    concBox.innerHTML='<strong style="color:#15803d">✓ LOLOS — Mesin siap dikirim.</strong> Seluruh '+TOTAL+' item pengecekan telah terpenuhi. Mesin dapat diserahterimakan ke teknisi dan dikirim ke lokasi customer.';
+  } else if(total>0){
+    const sisa=TOTAL-total;
+    sb.classList.add('in-progress');
+    lbl.textContent='⚠ In Progress';
+    main.textContent='Masih ada '+sisa+' item yang belum diperiksa';
+    sub.textContent='Selesaikan seluruh checklist sebelum pengiriman dilakukan';
+    concBox.innerHTML='<strong style="color:#b45309">⚠ BELUM SELESAI — '+sisa+' item masih pending.</strong> Jangan lakukan pengiriman sebelum semua item tercentang.';
+  } else {
+    lbl.textContent='Belum Dimulai';
+    main.textContent='Status Akhir Pengiriman';
+    sub.textContent='Lengkapi semua checklist untuk menentukan status akhir mesin';
+    concBox.innerHTML='<span style="color:#9ca3af">Lengkapi seluruh checklist untuk mendapatkan kesimpulan status mesin.</span>';
+  }
+
+  // Sign labels
+  const pic=document.querySelector('#grp-pic .pill.active');
+  const tek=document.querySelector('#grp-tek .pill.active');
+  document.getElementById('sign-pic').textContent=pic?pic.textContent:'_______________';
+  document.getElementById('sign-tek').textContent=tek?tek.textContent:'_______________';
+}
+
+// Pills
 document.querySelectorAll('.pill').forEach(p=>{
   p.addEventListener('click',()=>{
     const g=p.dataset.g;
     document.querySelectorAll('.pill[data-g="'+g+'"]').forEach(x=>x.classList.remove('active'));
     p.classList.add('active');
+    upd();
   });
 });
 
 function resetAll(){
-  document.querySelectorAll('.ci').forEach(el=>el.classList.remove('done'));
-  document.getElementById('inp-nama').value='';
-  document.getElementById('inp-id').value='';
-  document.querySelectorAll('.field-input').forEach(el=>el.value='');
-  document.querySelectorAll('.pill').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.checkbox').forEach(b=>{
+    b.classList.remove('checked');
+    const row=b.closest('tr');
+    if(row){row.classList.remove('row-done');const td=row.querySelector('.td-item');if(td)td.classList.remove('done-item');}
+  });
+  document.querySelectorAll('input').forEach(i=>i.value='');
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
   upd();
 }
 
-/* ===== SCAN LOGIC ===== */
-function openScan(target){
-  scanTarget=target;
-  const badge=document.getElementById('scan-target-badge');
-  const name=document.getElementById('scan-target-name');
-  if(target==='nama'){badge.textContent='Nama Mesin';name.textContent='Hasil scan akan diisi ke field Nama Mesin';}
-  else{badge.textContent='ID Mesin';name.textContent='Hasil scan akan diisi ke field ID Mesin';}
-  document.getElementById('manual-input').value='';
-  document.getElementById('hw-input').value='';
-  hideResult();
-  document.getElementById('scan-modal').classList.add('open');
-  switchMode('cam');
-}
-
-function closeScan(){
-  stopCamera();
-  document.getElementById('scan-modal').classList.remove('open');
-  scanTarget=null;
-}
-
-function switchMode(m){
-  currentMode=m;
-  document.getElementById('btn-cam').classList.toggle('active',m==='cam');
-  document.getElementById('btn-hw').classList.toggle('active',m==='hw');
-  document.getElementById('mode-cam').style.display=m==='cam'?'':'none';
-  document.getElementById('mode-hw').style.display=m==='hw'?'':'none';
-  if(m==='hw'){
-    stopCamera();
-    setTimeout(()=>document.getElementById('hw-input').focus(),100);
-  }
-}
-
-function startCamera(){
-  if(camRunning) return;
-  document.getElementById('cam-placeholder').style.display='none';
-  document.getElementById('start-cam-btn').style.display='none';
-  if(!html5QrCode) html5QrCode=new Html5Qrcode('reader');
-  Html5Qrcode.getCameras().then(cameras=>{
-    if(!cameras||!cameras.length){showError('Kamera tidak ditemukan');return;}
-    const camId=cameras[cameras.length-1].id;
-    html5QrCode.start(camId,{fps:12,qrbox:{width:220,height:120}},onScanSuccess,()=>{}).then(()=>{camRunning=true;}).catch(err=>{showError('Tidak dapat membuka kamera: '+err);});
-  }).catch(()=>showError('Akses kamera ditolak. Izinkan akses kamera di browser.'));
-}
-
-function stopCamera(){
-  if(html5QrCode&&camRunning){
-    html5QrCode.stop().catch(()=>{});
-    camRunning=false;
-  }
-  document.getElementById('cam-placeholder').style.display='';
-  document.getElementById('start-cam-btn').style.display='';
-}
-
-function onScanSuccess(decodedText){
-  applyValue(decodedText);
-}
-
-function showError(msg){
-  document.getElementById('cam-placeholder').style.display='';
-  document.getElementById('cam-placeholder').innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'+msg;
-}
-
-function confirmManual(){
-  const v=document.getElementById('manual-input').value.trim();
-  if(!v) return;
-  applyValue(v);
-}
-
-function confirmHW(){
-  const v=document.getElementById('hw-input').value.trim();
-  if(!v) return;
-  applyValue(v);
-}
-
-document.getElementById('hw-input').addEventListener('keydown',function(e){
-  if(e.key==='Enter'){
-    const v=this.value.trim();
-    if(v) applyValue(v);
-  }
-});
-
-function applyValue(val){
-  if(!val||!scanTarget) return;
-  stopCamera();
-  const inp=document.getElementById(scanTarget==='nama'?'inp-nama':'inp-id');
-  inp.value=val;
-  inp.style.borderColor='var(--scan)';
-  setTimeout(()=>inp.style.borderColor='',2000);
-  const box=document.getElementById('scan-result-box');
-  const label=scanTarget==='nama'?'Nama Mesin':'ID Mesin';
-  document.getElementById('scan-result-txt').textContent=label+' berhasil diisi: '+val;
-  box.classList.add('show');
-  setTimeout(()=>{closeScan();},1400);
-}
-
-function hideResult(){document.getElementById('scan-result-box').classList.remove('show')}
-
-document.getElementById('scan-modal').addEventListener('click',function(e){
-  if(e.target===this) closeScan();
+// Print prep
+window.addEventListener('beforeprint',()=>{
+  const now=new Date();
+  const tgl=now.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
+  const wkt=now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('p-tgl').textContent=tgl;
+  document.getElementById('p-wkt').textContent=wkt;
 });
 
 upd();
