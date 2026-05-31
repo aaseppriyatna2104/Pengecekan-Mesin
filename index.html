@@ -3,1522 +3,706 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOP Checklist Pengecekan Mesin</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<title>SOP Checklist — Pengecekan Mesin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #1c2230;
-    --border: #2a3142;
-    --accent: #00d4ff;
-    --accent2: #ff6b35;
-    --accent3: #39d353;
-    --warn: #f0a500;
-    --danger: #ff4444;
-    --text: #e6edf3;
-    --text-muted: #7d8590;
-    --text-dim: #4a5568;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  /* HEADER */
-  .header {
-    background: linear-gradient(135deg, #0d1117 0%, #0a1628 50%, #0d1117 100%);
-    border-bottom: 2px solid var(--accent);
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 32px rgba(0,212,255,0.12);
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, var(--accent), #0066ff);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    box-shadow: 0 0 20px rgba(0,212,255,0.4);
-  }
-
-  .header-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: var(--text);
-  }
-
-  .header-sub {
-    font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .progress-ring-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .progress-ring-label {
-    text-align: right;
-  }
-
-  .progress-ring-label .num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .progress-ring-label .of {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  svg.ring { transform: rotate(-90deg); }
-  .ring-bg { fill: none; stroke: var(--border); stroke-width: 5; }
-  .ring-fill { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
-
-  /* MAIN LAYOUT */
-  .main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 28px 24px 60px;
-  }
-
-  /* MACHINE INFO */
-  .info-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), #0066ff, transparent);
-  }
-
-  .info-card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .info-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .info-field label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-
-  .info-field input[type="text"] {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-
-  .info-field input[type="text"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
-  }
-
-  /* RADIO GROUP */
-  .radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .radio-group label {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-    user-select: none;
-  }
-
-  .radio-group input[type="radio"] { display: none; }
-
-  .radio-group label:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .radio-group input[type="radio"]:checked + span {
-    /* handled by JS */
-  }
-
-  .radio-group label.selected {
-    background: rgba(0,212,255,0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* CHECKBOX GROUP */
-  .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-    user-select: none;
-  }
-
-  .checkbox-group input[type="checkbox"] { display: none; }
-
-  .checkbox-group label:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .checkbox-group input[type="checkbox"]:checked + span {
-    /* handled by JS */
-  }
-
-  .checkbox-group label.selected {
-    background: rgba(0,212,255,0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* SECTIONS GRID */
-  .sections-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-
-  /* SECTION CARD */
-  .section-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-
-  .section-card.completed {
-    border-color: rgba(57,211,83,0.3);
-  }
-
-  .section-header {
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-  }
-
-  .section-header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-num {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    flex-shrink: 0;
-  }
-
-  .section-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-
-  .section-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: var(--border);
-    color: var(--text-muted);
-    transition: all 0.3s;
-    white-space: nowrap;
-  }
-
-  .section-badge.done {
-    background: rgba(57,211,83,0.15);
-    color: var(--accent3);
-  }
-
-  .section-body {
-    padding: 16px 20px;
-  }
-
-  /* SUBSECTION */
-  .subsection {
-    margin-bottom: 16px;
-  }
-
-  .subsection:last-child { margin-bottom: 0; }
-
-  .subsection-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .subsection-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* CHECKLIST ITEM */
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 9px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.15s;
-    user-select: none;
-    margin-bottom: 4px;
-  }
-
-  .check-item:hover { background: rgba(255,255,255,0.04); }
-
-  .check-item input[type="checkbox"] { display: none; }
-
-  .check-box {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    background: var(--bg);
-  }
-
-  .check-box svg {
-    width: 12px;
-    height: 12px;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.2s;
-  }
-
-  .check-item.checked .check-box {
-    background: var(--accent3);
-    border-color: var(--accent3);
-    box-shadow: 0 0 10px rgba(57,211,83,0.3);
-  }
-
-  .check-item.checked .check-box svg {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .check-label {
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--text);
-    transition: color 0.2s;
-    line-height: 1.4;
-  }
-
-  .check-item.checked .check-label {
-    color: var(--text-muted);
-    text-decoration: line-through;
-    text-decoration-color: rgba(57,211,83,0.5);
-  }
-
-  /* MINI PROGRESS BAR */
-  .mini-progress {
-    height: 3px;
-    background: var(--border);
-    border-radius: 99px;
-    margin-top: 12px;
-    overflow: hidden;
-  }
-
-  .mini-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent3), var(--accent));
-    border-radius: 99px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* STATUS CARD */
-  .status-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-
-  .status-card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
-
-  .status-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .status-btn {
-    flex: 1;
-    min-width: 180px;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: 2px solid var(--border);
-    background: var(--bg);
-    color: var(--text-muted);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.25s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-transform: uppercase;
-  }
-
-  .status-btn:hover { opacity: 0.85; }
-
-  .status-btn.ready.active {
-    border-color: var(--accent3);
-    background: rgba(57,211,83,0.1);
-    color: var(--accent3);
-    box-shadow: 0 0 20px rgba(57,211,83,0.2);
-  }
-
-  .status-btn.hold.active {
-    border-color: var(--warn);
-    background: rgba(240,165,0,0.1);
-    color: var(--warn);
-    box-shadow: 0 0 20px rgba(240,165,0,0.2);
-  }
-
-  .status-icon { font-size: 20px; }
-
-  /* NOTES */
-  .notes-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-
-  .notes-card textarea {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    resize: vertical;
-    min-height: 90px;
-    outline: none;
-    transition: border-color 0.2s;
-    line-height: 1.6;
-  }
-
-  .notes-card textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
-  }
-
-  /* SUBMIT */
-  .submit-bar {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-reset {
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-reset:hover {
-    border-color: var(--danger);
-    color: var(--danger);
-  }
-
-  .btn-print {
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: 1px solid var(--accent);
-    background: transparent;
-    color: var(--accent);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-print:hover {
-    background: rgba(0,212,255,0.1);
-  }
-
-  .btn-submit {
-    padding: 12px 28px;
-    border-radius: 10px;
-    border: none;
-    background: linear-gradient(135deg, var(--accent3), #00a86b);
-    color: #000;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(57,211,83,0.3);
-    text-transform: uppercase;
-  }
-
-  .btn-submit:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(57,211,83,0.4);
-  }
-
-  .btn-wa {
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: none;
-    background: linear-gradient(135deg, #25D366, #128C7E);
-    color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(37,211,102,0.3);
-    text-transform: uppercase;
-  }
-
-  .btn-wa:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(37,211,102,0.45);
-  }
-
-  /* WA MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-  }
-
-  .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid #25D366;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 520px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(37,211,102,0.15);
-    transform: scale(0.92) translateY(20px);
-    transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-  }
-
-  .modal-overlay.open .modal {
-    transform: scale(1) translateY(0);
-  }
-
-  .modal-header {
-    padding: 20px 22px 16px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .modal-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .wa-icon {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #25D366, #128C7E);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-
-  .modal-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-  }
-
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 20px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.2s;
-  }
-
-  .modal-close:hover { background: var(--border); color: var(--text); }
-
-  .modal-body { padding: 18px 22px; }
-
-  .wa-preview {
-    background: #0b1f16;
-    border: 1px solid rgba(37,211,102,0.2);
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 12.5px;
-    line-height: 1.7;
-    color: #d1fae5;
-    white-space: pre-wrap;
-    word-break: break-word;
-    max-height: 340px;
-    overflow-y: auto;
-    font-family: 'Courier New', monospace;
-    margin-bottom: 16px;
-  }
-
-  .wa-phone-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-
-  .wa-phone-row input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .wa-phone-row input:focus {
-    border-color: #25D366;
-    box-shadow: 0 0 0 3px rgba(37,211,102,0.15);
-  }
-
-  .wa-phone-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-
-  .modal-footer {
-    padding: 0 22px 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-  }
-
-  .btn-copy-wa {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-copy-wa:hover { border-color: var(--accent); color: var(--accent); }
-
-  .btn-send-wa {
-    padding: 10px 22px;
-    border-radius: 8px;
-    border: none;
-    background: linear-gradient(135deg, #25D366, #128C7E);
-    color: white;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-transform: uppercase;
-  }
-
-  .btn-send-wa:hover { opacity: 0.9; transform: translateY(-1px); }
-
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    background: var(--surface);
-    border: 1px solid var(--accent3);
-    border-radius: 12px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--accent3);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 999;
-  }
-
-  .toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* TUJUAN BANNER */
-  .tujuan-banner {
-    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,102,255,0.08));
-    border: 1px solid rgba(0,212,255,0.2);
-    border-radius: 12px;
-    padding: 14px 20px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13.5px;
-    color: var(--text-muted);
-  }
-
-  .tujuan-icon { font-size: 18px; flex-shrink: 0; }
-
-  .tujuan-text strong {
-    color: var(--accent);
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 3px;
-  }
-
-  /* TIMESTAMP */
-  .timestamp {
-    font-size: 11px;
-    color: var(--text-dim);
-    text-align: right;
-    margin-bottom: 8px;
-    font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: 0.5px;
-  }
-
-  @media print {
-    body { background: white; color: black; }
-    .header { position: static; box-shadow: none; background: white; border-bottom: 2px solid #00d4ff; }
-    .btn-reset, .btn-print, .btn-submit { display: none; }
-    .toast { display: none; }
-  }
-
-  @media (max-width: 600px) {
-    .header { padding: 14px 16px; }
-    .main { padding: 16px 14px 40px; }
-    .sections-grid { grid-template-columns: 1fr; }
-    .info-grid { grid-template-columns: 1fr; }
-    .header-title { font-size: 16px; }
-    .progress-ring-label .num { font-size: 22px; }
-  }
-
-  /* Color variants for section numbers */
-  .c1 { background: rgba(0,212,255,0.15); color: var(--accent); }
-  .c2 { background: rgba(255,107,53,0.15); color: var(--accent2); }
-  .c3 { background: rgba(57,211,83,0.15); color: var(--accent3); }
-  .c4 { background: rgba(240,165,0,0.15); color: var(--warn); }
-  .c5 { background: rgba(180,130,255,0.15); color: #b48aff; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f5f6f8;
+  --white:#ffffff;
+  --border:#e2e5ea;
+  --border-strong:#c8cdd6;
+  --text:#1a1d23;
+  --text-2:#4b5563;
+  --text-3:#9ca3af;
+  --accent:#1e3a5f;
+  --accent-soft:#eef2f7;
+  --green:#166534;
+  --green-bg:#f0fdf4;
+  --green-border:#bbf7d0;
+  --red:#991b1b;
+  --red-bg:#fef2f2;
+  --red-border:#fecaca;
+  --amber:#92400e;
+  --amber-bg:#fffbeb;
+  --amber-border:#fde68a;
+  --blue:#1e40af;
+  --blue-bg:#eff6ff;
+  --blue-border:#bfdbfe;
+  --radius:6px;
+  --radius-lg:10px;
+  --scan:#0ea5e9;
+  --scan-bg:#f0f9ff;
+  --scan-border:#bae6fd;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;
+    --white:#1a1d26;
+    --border:#2a2f3d;
+    --border-strong:#3d4454;
+    --text:#e8ecf0;
+    --text-2:#9ba3af;
+    --text-3:#4b5563;
+    --accent-soft:#1a2235;
+    --green-bg:#052e16;
+    --green-border:#166534;
+    --red-bg:#2d0a0a;
+    --red-border:#7f1d1d;
+    --amber-bg:#1c1007;
+    --amber-border:#78350f;
+    --blue-bg:#0d1b36;
+    --blue-border:#1e3a7f;
+  }
+}
+body{font-family:'Inter',system-ui,sans-serif;font-size:13px;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+.wrapper{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+
+/* TOP NAV */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.brand{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)}
+.divider-v{width:1px;height:16px;background:var(--border-strong)}
+.page-title{font-size:13px;font-weight:500;color:var(--text)}
+.topbar-right{display:flex;gap:8px}
+.btn{font-family:inherit;font-size:12px;font-weight:500;padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border-strong);background:var(--white);color:var(--text-2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{opacity:.88;color:#fff}
+
+/* HEADER BLOCK */
+.header-block{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:20px}
+.header-icon{width:44px;height:44px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.header-text h1{font-size:16px;font-weight:600;color:var(--text);line-height:1.3}
+.header-text p{font-size:12px;color:var(--text-2);margin-top:2px}
+.header-meta{margin-left:auto;text-align:right;flex-shrink:0}
+.meta-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);font-weight:500}
+.meta-val{font-size:18px;font-weight:600;color:var(--accent)}
+.meta-sub{font-size:11px;color:var(--text-3)}
+
+/* PROGRESS ROW */
+.progress-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.prog-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;position:relative;overflow:hidden}
+.prog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--border);border-radius:0 0 var(--radius) var(--radius)}
+.prog-fill{position:absolute;bottom:0;left:0;height:3px;border-radius:0 0 0 0;background:var(--accent);transition:width .4s ease}
+.prog-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:4px}
+.prog-count{font-size:15px;font-weight:600;color:var(--text)}
+.prog-total{font-size:12px;font-weight:400;color:var(--text-3)}
+
+/* INFO SECTION */
+.section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden}
+.section-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--white)}
+.sec-badge{font-size:10px;font-weight:600;letter-spacing:.05em;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent);flex-shrink:0;text-transform:uppercase}
+.sec-title{font-size:13px;font-weight:600;color:var(--text)}
+.sec-prog{margin-left:auto;font-size:11px;color:var(--text-3);white-space:nowrap}
+.sec-prog strong{color:var(--text-2);font-weight:600}
+.section-body{padding:20px}
+
+/* INFO GRID */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+.field-label{font-size:11px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block}
+.field-input{width:100%;font-family:inherit;font-size:13px;padding:8px 11px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
+.field-input:focus{border-color:var(--accent)}
+.field-input::placeholder{color:var(--text-3)}
+.full{grid-column:1/-1}
+.pill-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid var(--border-strong);border-radius:100px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--bg);cursor:pointer;transition:all .15s;user-select:none}
+.pill:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.pill-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor;transition:all .15s;flex-shrink:0}
+.pill.active .pill-dot{background:rgba(255,255,255,.7);border-color:transparent}
+.note-box{grid-column:1/-1;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--blue);line-height:1.6}
+.note-box span{font-weight:600}
+
+/* CHECKLIST */
+.subsec{margin-bottom:18px}
+.subsec:last-child{margin-bottom:0}
+.subsec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.subsec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.checks{display:flex;flex-direction:column;gap:5px}
+.ci{display:flex;align-items:center;gap:11px;padding:9px 13px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .15s;background:var(--bg);user-select:none}
+.ci:hover{border-color:var(--border-strong);background:var(--white)}
+.ci.done{background:var(--green-bg);border-color:var(--green-border)}
+.ci.done .ci-text{color:var(--text-3);text-decoration:line-through}
+.cbox{width:16px;height:16px;border:1.5px solid var(--border-strong);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--white)}
+.ci.done .cbox{background:var(--green);border-color:var(--green)}
+.cbox svg{display:none;width:9px;height:9px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ci.done .cbox svg{display:block}
+.ci-text{font-size:13px;color:var(--text);transition:all .15s}
+.ci-num{margin-left:auto;font-size:10px;font-weight:500;color:var(--text-3);background:var(--white);border:1px solid var(--border);border-radius:3px;padding:1px 5px;flex-shrink:0}
+.ci.done .ci-num{display:none}
+
+/* SECTION PROGRESS BAR */
+.sec-bar-wrap{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.sec-bar-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.sec-bar-label{font-size:11px;color:var(--text-3)}
+.sec-bar-pct{font-size:11px;font-weight:600;color:var(--text-2)}
+.bar{height:4px;background:var(--border);border-radius:100px;overflow:hidden}
+.bar-inner{height:100%;border-radius:100px;background:var(--accent);width:0%;transition:width .4s ease}
+
+/* STATUS */
+.status-block{border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;text-align:center;margin-bottom:16px;background:var(--white);transition:all .3s}
+.status-block.ready{background:var(--green-bg);border-color:var(--green-border)}
+.status-block.hold{background:var(--red-bg);border-color:var(--red-border)}
+.status-block.pending{background:var(--amber-bg);border-color:var(--amber-border)}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.status-block .status-pill{background:var(--border);color:var(--text-3)}
+.status-block.ready .status-pill{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.status-block.hold .status-pill{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.status-block.pending .status-pill{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
+.status-main{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+.status-block.ready .status-main{color:var(--green)}
+.status-block.hold .status-main{color:var(--red)}
+.status-sub-txt{font-size:12px;color:var(--text-3)}
+.action-row{display:flex;gap:8px;justify-content:flex-end}
+
+/* SCAN */
+.scan-btn{font-family:inherit;font-size:12px;font-weight:500;padding:7px 12px;border-radius:var(--radius);border:1px solid var(--scan-border);background:var(--scan-bg);color:var(--scan);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.scan-btn:hover{background:var(--scan);color:#fff;border-color:var(--scan)}
+.scan-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.field-row{display:flex;gap:6px;align-items:center}
+.field-row .field-input{flex:1;min-width:0}
+.scan-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;background:var(--scan-bg);color:var(--scan);border:1px solid var(--scan-border);margin-left:6px;letter-spacing:.03em}
+
+/* MODAL OVERLAY */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);width:360px;max-width:94vw;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
+.modal-head h3{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.modal-head h3 svg{width:16px;height:16px;stroke:var(--scan);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.modal-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-3);line-height:1;padding:2px 6px;border-radius:4px}
+.modal-close:hover{background:var(--bg);color:var(--text)}
+.modal-body{padding:18px}
+.scan-target-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:10px}
+.scan-target-info{font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.scan-target-info span{background:var(--accent);color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.04em}
+.cam-area{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#000;min-height:200px;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:12px}
+#reader{width:100%}
+.cam-placeholder{text-align:center;color:var(--text-3);font-size:12px;padding:40px 20px}
+.cam-placeholder svg{width:36px;height:36px;stroke:var(--text-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin-bottom:8px;display:block;margin:0 auto 8px}
+.scan-divider{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:11px;color:var(--text-3)}
+.scan-divider::before,.scan-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.manual-row{display:flex;gap:6px}
+.manual-row input{flex:1;font-family:inherit;font-size:13px;padding:8px 11px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--bg);color:var(--text);outline:none}
+.manual-row input:focus{border-color:var(--scan)}
+.btn-scan-confirm{font-family:inherit;font-size:12px;font-weight:600;padding:8px 16px;border-radius:var(--radius);border:none;background:var(--accent);color:#fff;cursor:pointer;white-space:nowrap}
+.btn-scan-confirm:hover{opacity:.88}
+.scan-result-box{display:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--green);margin-top:10px;align-items:center;gap:8px}
+.scan-result-box.show{display:flex}
+.scan-result-box svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.cam-mode-row{display:flex;gap:6px;margin-bottom:12px}
+.cam-mode-btn{flex:1;font-family:inherit;font-size:12px;font-weight:500;padding:7px 10px;border-radius:var(--radius);border:1px solid var(--border-strong);background:var(--bg);color:var(--text-2);cursor:pointer;transition:all .15s}
+.cam-mode-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hw-hint{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--amber);line-height:1.6;margin-bottom:12px}
+.hw-hint strong{font-weight:600}
+
+@media print{
+  body{background:#fff}
+  .topbar-right,.action-row,.modal-overlay{display:none}
+  .ci{background:#fafafa;border:1px solid #e5e7eb}
+  .ci.done{background:#f0fdf4}
+  .section,.header-block,.status-block,.prog-card{break-inside:avoid}
+  .scan-btn,.scan-tag{display:none}
+}
 </style>
 </head>
 <body>
+<div class="wrapper">
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-left">
-    <div class="logo-icon">⚙️</div>
-    <div>
-      <div class="header-title">SOP CHECKLIST MESIN</div>
-      <div class="header-sub">Pre-Deployment Inspection</div>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="brand">Gudang &amp; QC</span>
+      <div class="divider-v"></div>
+      <span class="page-title">SOP Checklist — Pengecekan Mesin Sebelum Pengiriman</span>
+    </div>
+    <div class="topbar-right">
+      <button class="btn" onclick="resetAll()">Reset</button>
+      <button class="btn btn-primary" onclick="window.print()">Cetak</button>
     </div>
   </div>
-  <div class="header-right">
-    <div class="progress-ring-wrap">
-      <div class="progress-ring-label">
-        <div class="num" id="progressNum">0</div>
-        <div class="of">/ <span id="totalNum">0</span> item</div>
-      </div>
-      <svg class="ring" width="52" height="52" viewBox="0 0 52 52">
-        <circle class="ring-bg" cx="26" cy="26" r="22"/>
-        <circle class="ring-fill" cx="26" cy="26" r="22" id="ringFill"
-          stroke-dasharray="138.2"
-          stroke-dashoffset="138.2"/>
-      </svg>
+
+  <!-- HEADER -->
+  <div class="header-block">
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2m2 0h6M7 11h4"/></svg>
+    </div>
+    <div class="header-text">
+      <h1>Pengecekan Mesin Sebelum Dibawa Teknisi</h1>
+      <p>Pastikan seluruh item terverifikasi sebelum mesin dikirimkan ke lokasi customer</p>
+    </div>
+    <div class="header-meta">
+      <div class="meta-label">Progress</div>
+      <div class="meta-val" id="overall-pct">0%</div>
+      <div class="meta-sub" id="overall-count">0 / 30 item</div>
     </div>
   </div>
-</div>
 
-<!-- MAIN -->
-<div class="main">
-
-  <div class="timestamp" id="timestampEl"></div>
-
-  <!-- TUJUAN -->
-  <div class="tujuan-banner">
-    <span class="tujuan-icon">🎯</span>
-    <div class="tujuan-text">
-      <strong>Tujuan Dokumen</strong>
-      Memastikan mesin dalam kondisi aman, lengkap, dan siap dipasang di lokasi customer.
-    </div>
+  <!-- PROGRESS PER SECTION -->
+  <div class="progress-row">
+    <div class="prog-card"><div class="prog-label">Pengecekan Awal</div><div class="prog-count" id="pc1">0<span class="prog-total">/9</span></div><div class="prog-fill" id="pf1"></div></div>
+    <div class="prog-card"><div class="prog-label">Fungsi Mesin</div><div class="prog-count" id="pc2">0<span class="prog-total">/4</span></div><div class="prog-fill" id="pf2"></div></div>
+    <div class="prog-card"><div class="prog-label">Kelengkapan</div><div class="prog-count" id="pc3">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf3"></div></div>
+    <div class="prog-card"><div class="prog-label">Pengiriman</div><div class="prog-count" id="pc4">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf4"></div></div>
+    <div class="prog-card"><div class="prog-label">Serah Terima</div><div class="prog-count" id="pc5">0<span class="prog-total">/7</span></div><div class="prog-fill" id="pf5"></div></div>
   </div>
 
   <!-- INFO MESIN -->
-  <div class="info-card">
-    <div class="info-card-title">📋 Informasi Mesin</div>
-    <div class="info-grid">
-      <div class="info-field">
-        <label>Nama Mesin</label>
-        <input type="text" id="namaMesin" placeholder="Masukkan nama mesin...">
-      </div>
-      <div class="info-field">
-        <label>ID Mesin</label>
-        <input type="text" id="idMesin" placeholder="Masukkan ID mesin...">
-      </div>
-      <div class="info-field" style="grid-column: 1 / -1;">
-        <label>Type / Model</label>
-        <div class="radio-group" id="typeGroup">
-          <label onclick="selectRadio('typeGroup',this)"><input type="radio" name="type"><span>Nas Large</span></label>
-          <label onclick="selectRadio('typeGroup',this)"><input type="radio" name="type"><span>Nas Medium</span></label>
-          <label onclick="selectRadio('typeGroup',this)"><input type="radio" name="type"><span>Nas Small</span></label>
-          <label onclick="selectRadio('typeGroup',this)"><input type="radio" name="type"><span>LDX Large</span></label>
-          <label onclick="selectRadio('typeGroup',this)"><input type="radio" name="type"><span>LDX Medium</span></label>
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">Info</div>
+      <span class="sec-title">Informasi Mesin</span>
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div>
+          <label class="field-label">Nama Mesin <span class="scan-tag">Scan</span></label>
+          <div class="field-row">
+            <input type="text" id="inp-nama" class="field-input" placeholder="Masukkan atau scan nama mesin">
+            <button class="scan-btn" onclick="openScan('nama')" title="Scan Barcode Nama Mesin">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
+              Scan
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="info-field">
-        <label>👤 Nama Teknisi (Pilih 1 atau lebih)</label>
-        <div class="checkbox-group" id="teknisiGroup">
-          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Asep"><span>Asep</span></label>
-          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Rezky"><span>Rezky</span></label>
-          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Mahendra"><span>Mahendra</span></label>
-          <label onclick="toggleCheckbox(this)"><input type="checkbox" name="teknisi" value="Rahmat"><span>Rahmat</span></label>
+        <div>
+          <label class="field-label">ID Mesin <span class="scan-tag">Scan</span></label>
+          <div class="field-row">
+            <input type="text" id="inp-id" class="field-input" placeholder="Masukkan atau scan ID mesin">
+            <button class="scan-btn" onclick="openScan('id')" title="Scan Barcode ID Mesin">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
+              Scan
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="info-field">
-        <label>PIC Gudang / QC</label>
-        <div class="radio-group" id="picGroup">
-          <label onclick="selectRadio('picGroup',this)"><input type="radio" name="pic"><span>Nana</span></label>
-          <label onclick="selectRadio('picGroup',this)"><input type="radio" name="pic"><span>Rahmat</span></label>
+        <div>
+          <label class="field-label">Type / Model</label>
+          <div class="pill-group" id="type-grp">
+            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Large</span>
+            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Medium</span>
+            <span class="pill" data-g="type"><span class="pill-dot"></span>Nas Small</span>
+            <span class="pill" data-g="type"><span class="pill-dot"></span>LDX Large</span>
+            <span class="pill" data-g="type"><span class="pill-dot"></span>LDX Medium</span>
+          </div>
         </div>
+        <div>
+          <label class="field-label">Nama Teknisi</label>
+          <div class="pill-group" id="tek-grp">
+            <span class="pill" data-g="tek"><span class="pill-dot"></span>Asep</span>
+            <span class="pill" data-g="tek"><span class="pill-dot"></span>Rezky</span>
+            <span class="pill" data-g="tek"><span class="pill-dot"></span>Mahendra</span>
+            <span class="pill" data-g="tek"><span class="pill-dot"></span>Rahmat</span>
+          </div>
+        </div>
+        <div class="full">
+          <label class="field-label">PIC Gudang / QC</label>
+          <div class="pill-group" id="pic-grp">
+            <span class="pill" data-g="pic"><span class="pill-dot"></span>Nana</span>
+            <span class="pill" data-g="pic"><span class="pill-dot"></span>Rahmat</span>
+          </div>
+        </div>
+        <div class="note-box"><span>Tujuan:</span> Memastikan mesin dalam kondisi aman, lengkap, dan siap dipasang di lokasi customer.</div>
       </div>
     </div>
   </div>
 
-  <!-- CHECKLIST SECTIONS -->
-  <div class="sections-grid" id="sectionsGrid"></div>
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">01</div>
+      <span class="sec-title">Pengecekan Awal Unit</span>
+      <span class="sec-prog" id="sp1"><strong>0</strong> / 9 item</span>
+    </div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-label">Pemeriksaan Fisik</div>
+        <div class="checks" data-s="1">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Body mesin tidak kusam / kotor</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Lampu menyala normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Kabel dalam kondisi baik</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Stiker mesin aman</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">ID Mesin sesuai</span></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-label">Test Running</div>
+        <div class="checks" data-s="1">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin dapat menyala normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Test Rent normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Test Return normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Semua fungsi berjalan</span></div>
+        </div>
+      </div>
+      <div class="sec-bar-wrap">
+        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 1 — Pengecekan Awal</span><span class="sec-bar-pct" id="bp1">0%</span></div>
+        <div class="bar"><div class="bar-inner" id="bi1"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">02</div>
+      <span class="sec-title">Pemeriksaan Fungsi Mesin</span>
+      <span class="sec-prog" id="sp2"><strong>0</strong> / 4 item</span>
+    </div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-label">Pengujian Operasional</div>
+        <div class="checks" data-s="2">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tombol start/stop berfungsi</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Sensor barcode bekerja normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Transaksi normal</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Nama lokasi mesin sesuai</span></div>
+        </div>
+      </div>
+      <div class="sec-bar-wrap">
+        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 2 — Fungsi Mesin</span><span class="sec-bar-pct" id="bp2">0%</span></div>
+        <div class="bar"><div class="bar-inner" id="bi2"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">03</div>
+      <span class="sec-title">Pemeriksaan Kelengkapan Sparepart &amp; Accessories</span>
+      <span class="sec-prog" id="sp3"><strong>0</strong> / 7 item</span>
+    </div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-label">Sparepart &amp; Accessories</div>
+        <div class="checks" data-s="3">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Standing tersedia</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Equipment pendukung tersedia</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tools pendukung tersedia</span></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-label">Dokumen</div>
+        <div class="checks" data-s="3">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Form QC sudah diisi</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Surat jalan tersedia</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Data customer lengkap</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Lokasi pemasangan sudah dikonfirmasi</span></div>
+        </div>
+      </div>
+      <div class="sec-bar-wrap">
+        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 3 — Kelengkapan</span><span class="sec-bar-pct" id="bp3">0%</span></div>
+        <div class="bar"><div class="bar-inner" id="bi3"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">04</div>
+      <span class="sec-title">Persiapan Pengiriman</span>
+      <span class="sec-prog" id="sp4"><strong>0</strong> / 7 item</span>
+    </div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-label">Packing</div>
+        <div class="checks" data-s="4">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin dipacking dengan aman</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Menggunakan pelindung tambahan</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Label nama mesin dipasang</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Standing dipacking dengan aman</span></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-label">Transportasi</div>
+        <div class="checks" data-s="4">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Kendaraan pengangkut siap</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin sudah diikat dengan aman</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Jadwal keberangkatan sesuai</span></div>
+        </div>
+      </div>
+      <div class="sec-bar-wrap">
+        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 4 — Pengiriman</span><span class="sec-bar-pct" id="bp4">0%</span></div>
+        <div class="bar"><div class="bar-inner" id="bi4"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-badge">05</div>
+      <span class="sec-title">Serah Terima ke Teknisi</span>
+      <span class="sec-prog" id="sp5"><strong>0</strong> / 7 item</span>
+    </div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-label">Briefing Teknisi</div>
+        <div class="checks" data-s="5">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi menerima informasi lokasi</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi memahami prosedur instalasi</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi menerima kontak customer</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Teknisi membawa tools lengkap</span></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-label">Final Check</div>
+        <div class="checks" data-s="5">
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Mesin siap dibawa</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Tidak ada kendala pending</span></div>
+          <div class="ci" onclick="tick(this)"><div class="cbox"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg></div><span class="ci-text">Approval supervisor selesai</span></div>
+        </div>
+      </div>
+      <div class="sec-bar-wrap">
+        <div class="sec-bar-row"><span class="sec-bar-label">Seksi 5 — Serah Terima</span><span class="sec-bar-pct" id="bp5">0%</span></div>
+        <div class="bar"><div class="bar-inner" id="bi5"></div></div>
+      </div>
+    </div>
+  </div>
 
   <!-- STATUS AKHIR -->
-  <div class="status-card">
-    <div class="status-card-title">🏁 Status Akhir</div>
-    <div class="status-options">
-      <button class="status-btn ready" id="btnReady" onclick="setStatus('ready')">
-        <span class="status-icon">✅</span>
-        <span>Ready to Install</span>
-      </button>
-      <button class="status-btn hold" id="btnHold" onclick="setStatus('hold')">
-        <span class="status-icon">⏸️</span>
-        <span>Hold / Perlu Perbaikan</span>
-      </button>
-    </div>
+  <div class="status-block" id="status-block">
+    <div><span class="status-pill" id="status-pill"><span class="status-dot"></span><span id="status-label">Belum dimulai</span></span></div>
+    <div class="status-main" id="status-main">Status Akhir Pengiriman</div>
+    <div class="status-sub-txt" id="status-sub">Lengkapi semua checklist untuk menentukan status akhir mesin</div>
   </div>
 
-  <!-- CATATAN -->
-  <div class="notes-card">
-    <div class="info-card-title" style="margin-bottom:12px">📝 Catatan Tambahan</div>
-    <textarea id="catatan" placeholder="Tuliskan catatan, kendala, atau informasi tambahan di sini..."></textarea>
-  </div>
-
-  <!-- ACTIONS -->
-  <div class="submit-bar">
-    <button class="btn-reset" onclick="resetAll()">🔄 Reset Semua</button>
-    <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
-    <button class="btn-wa" onclick="openWAModal()">
-      <svg width="18" height="18" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.668 4.8 1.832 6.8L2 30l7.4-1.8A13.9 13.9 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.07 19.43c-.294.826-1.715 1.574-2.338 1.67-.6.09-1.358.126-2.192-.138-.505-.163-1.153-.38-1.98-.745-3.48-1.502-5.754-5.02-5.928-5.253-.172-.234-1.41-1.878-1.41-3.58 0-1.7.89-2.537 1.207-2.882.317-.345.69-.432.92-.432.23 0 .46.002.66.012.212.01.497-.08.778.594.294.7 1 2.418 1.086 2.594.087.175.145.38.028.613-.115.23-.173.374-.344.575-.172.2-.362.447-.517.6-.173.172-.352.358-.152.703.2.344.89 1.47 1.913 2.382 1.315 1.172 2.423 1.534 2.767 1.708.344.174.546.145.748-.088.2-.23.862-.99 1.09-1.334.23-.345.46-.287.776-.172.316.115 2.006.946 2.35 1.118.346.174.576.26.66.403.087.143.087.83-.207 1.656z"/>
-      </svg>
-      Kirim ke WhatsApp
-    </button>
-    <button class="btn-submit" onclick="submitForm()">✔ Simpan & Selesai</button>
+  <div class="action-row">
+    <button class="btn" onclick="resetAll()">Reset Semua</button>
+    <button class="btn btn-primary" onclick="window.print()">Cetak / Print</button>
   </div>
 
 </div>
 
-<!-- WA MODAL -->
-<div class="modal-overlay" id="waModal">
+<!-- SCAN MODAL -->
+<div class="modal-overlay" id="scan-modal">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-header-left">
-        <div class="wa-icon">💬</div>
-        <div class="modal-title">Export ke WhatsApp</div>
-      </div>
-      <button class="modal-close" onclick="closeWAModal()">✕</button>
+    <div class="modal-head">
+      <h3>
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3v3M21 21h-2M16 21v-2M12 3v4M12 12v1M12 16v5M3 12h5M12 8h1M16 12h5M16 8h5"/></svg>
+        Scan Barcode
+      </h3>
+      <button class="modal-close" onclick="closeScan()">&#x2715;</button>
     </div>
     <div class="modal-body">
-      <div class="wa-phone-label">Nomor Tujuan (opsional)</div>
-      <div class="wa-phone-row">
-        <input type="text" id="waPhone" placeholder="Contoh: 628123456789 (tanpa +)">
+      <div class="scan-target-label">Input Target</div>
+      <div class="scan-target-info" id="scan-target-info">
+        <span id="scan-target-badge">–</span>
+        <span id="scan-target-name">–</span>
       </div>
-      <div class="wa-phone-label" style="margin-bottom:8px">Preview Pesan</div>
-      <div class="wa-preview" id="waPreview"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-copy-wa" onclick="copyWAText()">📋 Copy Teks</button>
-      <button class="btn-send-wa" onclick="sendToWA()">
-        <svg width="16" height="16" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.668 4.8 1.832 6.8L2 30l7.4-1.8A13.9 13.9 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.07 19.43c-.294.826-1.715 1.574-2.338 1.67-.6.09-1.358.126-2.192-.138-.505-.163-1.153-.38-1.98-.745-3.48-1.502-5.754-5.02-5.928-5.253-.172-.234-1.41-1.878-1.41-3.58 0-1.7.89-2.537 1.207-2.882.317-.345.69-.432.92-.432.23 0 .46.002.66.012.212.01.497-.08.778.594.294.7 1 2.418 1.086 2.594.087.175.145.38.028.613-.115.23-.173.374-.344.575-.172.2-.362.447-.517.6-.173.172-.352.358-.152.703.2.344.89 1.47 1.913 2.382 1.315 1.172 2.423 1.534 2.767 1.708.344.174.546.145.748-.088.2-.23.862-.99 1.09-1.334.23-.345.46-.287.776-.172.316.115 2.006.946 2.35 1.118.346.174.576.26.66.403.087.143.087.83-.207 1.656z"/>
-        </svg>
-        Buka WhatsApp
-      </button>
+
+      <div class="cam-mode-row">
+        <button class="cam-mode-btn active" id="btn-cam" onclick="switchMode('cam')">Kamera</button>
+        <button class="cam-mode-btn" id="btn-hw" onclick="switchMode('hw')">Scanner HW</button>
+      </div>
+
+      <!-- CAMERA MODE -->
+      <div id="mode-cam">
+        <div class="cam-area">
+          <div id="reader"></div>
+          <div class="cam-placeholder" id="cam-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v4M9 3H5a2 2 0 0 0-2 2v4M15 21h4a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+            Klik tombol di bawah untuk<br>mengaktifkan kamera
+          </div>
+        </div>
+        <button class="btn btn-primary" id="start-cam-btn" onclick="startCamera()" style="width:100%;justify-content:center;margin-bottom:10px">Aktifkan Kamera</button>
+      </div>
+
+      <!-- HW SCANNER MODE -->
+      <div id="mode-hw" style="display:none">
+        <div class="hw-hint">
+          <strong>Scanner USB / Bluetooth</strong><br>
+          Klik pada field di bawah lalu arahkan scanner ke barcode. Nilai akan otomatis terisi saat scanner mengirim data.
+        </div>
+        <div class="manual-row" style="margin-bottom:0">
+          <input type="text" id="hw-input" placeholder="Fokus di sini, lalu scan barcode..." autofocus>
+          <button class="btn-scan-confirm" onclick="confirmHW()">Terapkan</button>
+        </div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:6px">Scanner HW mengirim Enter otomatis — nilai langsung terapkan.</div>
+      </div>
+
+      <div class="scan-divider">atau input manual</div>
+      <div class="manual-row">
+        <input type="text" id="manual-input" placeholder="Ketik nilai secara manual...">
+        <button class="btn-scan-confirm" onclick="confirmManual()">Terapkan</button>
+      </div>
+      <div class="scan-result-box" id="scan-result-box">
+        <svg viewBox="0 0 10 8"><polyline points="1,4 3.5,6.5 9,1"/></svg>
+        <span id="scan-result-txt">Berhasil discan</span>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <span>✅</span>
-  <span id="toastMsg">Berhasil disimpan!</span>
-</div>
-
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-// ===== DATA =====
-const sections = [
-  {
-    id: 's1', num: '01', title: 'Pengecekan Awal Unit', color: 'c1',
-    subsections: [
-      {
-        title: 'Pemeriksaan Fisik',
-        items: [
-          'Body mesin tidak kusam / kotor',
-          'Lampu menyala normal',
-          'Kabel dalam kondisi baik',
-          'Stiker mesin aman',
-          'ID Mesin sesuai',
-        ]
-      }
-    ]
-  },
-  {
-    id: 's2', num: '02', title: 'Pemeriksaan Fungsi Mesin', color: 'c2',
-    subsections: [
-      {
-        title: 'Test Running',
-        items: [
-          'Mesin dapat menyala normal',
-          'Test Rent normal',
-          'Test Return normal',
-          'Semua fungsi berjalan',
-        ]
-      },
-      {
-        title: 'Pengujian Operasional',
-        items: [
-          'Tombol start/stop berfungsi',
-          'Sensor barcode bekerja normal',
-          'Transaksi normal',
-          'Nama Lokasi mesin sesuai',
-          'Jumlah PowerBank sesuai',
-        ]
-      }
-    ]
-  },
-  {
-    id: 's3', num: '03', title: 'Pemeriksaan Kelengkapan', color: 'c3',
-    subsections: [
-      {
-        title: 'Sparepart & Accessories',
-        items: [
-          'Standing tersedia',
-          'Equipment pendukung tersedia',
-          'Tools pendukung tersedia',
-        ]
-      },
-      {
-        title: 'Dokumen',
-        items: [
-          'Form QC sudah diisi',
-          'Surat jalan tersedia',
-          'Data customer lengkap',
-          'Lokasi pemasangan sudah dikonfirmasi',
-        ]
-      }
-    ]
-  },
-  {
-    id: 's4', num: '04', title: 'Persiapan Pengiriman', color: 'c4',
-    subsections: [
-      {
-        title: 'Packing',
-        items: [
-          'Mesin dipacking dengan aman',
-          'Menggunakan pelindung tambahan',
-          'Label nama mesin dipasang',
-          'Standing dipacking dengan aman',
-        ]
-      },
-      {
-        title: 'Transportasi',
-        items: [
-          'Kendaraan pengangkut siap',
-          'Mesin sudah diikat dengan aman',
-          'Jadwal keberangkatan sesuai',
-        ]
-      }
-    ]
-  },
-  {
-    id: 's5', num: '05', title: 'Serah Terima ke Teknisi', color: 'c5',
-    subsections: [
-      {
-        title: 'Briefing Teknisi',
-        items: [
-          'Teknisi menerima informasi lokasi',
-          'Teknisi memahami instalasi',
-          'Teknisi menerima kontak customer',
-          'Teknisi membawa tools lengkap',
-        ]
-      },
-      {
-        title: 'Final Check',
-        items: [
-          'Mesin siap dibawa',
-          'Tidak ada kendala pending',
-          'Approval supervisor selesai',
-        ]
-      }
-    ]
+const TOTAL=30;
+let scanTarget=null;
+let html5QrCode=null;
+let camRunning=false;
+let currentMode='cam';
+
+function tick(el){el.classList.toggle('done');upd()}
+function upd(){
+  const done=document.querySelectorAll('.ci.done').length;
+  const pct=Math.round(done/TOTAL*100);
+  document.getElementById('overall-pct').textContent=pct+'%';
+  document.getElementById('overall-count').textContent=done+' / '+TOTAL+' item';
+  for(let s=1;s<=5;s++){
+    const items=document.querySelectorAll('[data-s="'+s+'"] .ci');
+    const d=document.querySelectorAll('[data-s="'+s+'"] .ci.done').length;
+    const t=items.length;
+    const p=t?Math.round(d/t*100):0;
+    document.getElementById('pc'+s).innerHTML=d+'<span class="prog-total">/'+t+'</span>';
+    document.getElementById('pf'+s).style.width=p+'%';
+    document.getElementById('sp'+s).innerHTML='<strong>'+d+'</strong> / '+t+' item';
+    document.getElementById('bp'+s).textContent=p+'%';
+    document.getElementById('bi'+s).style.width=p+'%';
   }
-];
-
-// ===== STATE =====
-let checkedState = {};
-let currentStatus = null;
-
-// ===== RENDER SECTIONS =====
-function renderSections() {
-  const grid = document.getElementById('sectionsGrid');
-  grid.innerHTML = '';
-
-  sections.forEach(sec => {
-    const allItems = sec.subsections.flatMap(s => s.items);
-    const card = document.createElement('div');
-    card.className = 'section-card';
-    card.id = 'card_' + sec.id;
-
-    let subsHtml = '';
-    sec.subsections.forEach(sub => {
-      let itemsHtml = sub.items.map((item, i) => {
-        const key = sec.id + '_' + sub.title + '_' + i;
-        const checked = checkedState[key] ? 'checked' : '';
-        return `
-          <label class="check-item ${checked}" onclick="toggleCheck('${key}', this, event)" data-key="${key}">
-            <input type="checkbox" ${checked}>
-            <div class="check-box">
-              <svg viewBox="0 0 12 12" fill="none">
-                <path d="M1.5 6L4.5 9L10.5 3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span class="check-label">${item}</span>
-          </label>`;
-      }).join('');
-
-      subsHtml += `
-        <div class="subsection">
-          <div class="subsection-title">${sub.title}</div>
-          ${itemsHtml}
-        </div>`;
-    });
-
-    const checkedCount = allItems.filter((_, i) => {
-      const key = sec.id + '_' + sec.subsections[Math.floor(i / sec.subsections[0].items.length)]?.title + '_' + (i % sec.subsections[0].items.length);
-      return false;
-    }).length;
-
-    card.innerHTML = `
-      <div class="section-header">
-        <div class="section-header-left">
-          <div class="section-num ${sec.color}">${sec.num}</div>
-          <div class="section-title">${sec.title}</div>
-        </div>
-        <div class="section-badge" id="badge_${sec.id}">0 / ${allItems.length}</div>
-      </div>
-      <div class="section-body">
-        ${subsHtml}
-        <div class="mini-progress">
-          <div class="mini-progress-fill" id="prog_${sec.id}"></div>
-        </div>
-      </div>`;
-
-    grid.appendChild(card);
-  });
-
-  updateProgress();
-}
-
-// ===== TOGGLE CHECK =====
-function toggleCheck(key, el, event) {
-  if (event) event.preventDefault();
-  checkedState[key] = !checkedState[key];
-  if (checkedState[key]) {
-    el.classList.add('checked');
-    el.querySelector('input').checked = true;
+  const sb=document.getElementById('status-block');
+  const sl=document.getElementById('status-label');
+  const sm=document.getElementById('status-main');
+  const ss=document.getElementById('status-sub');
+  sb.className='status-block';
+  if(done===TOTAL){
+    sb.classList.add('ready');
+    sl.textContent='Ready to Install';
+    sm.textContent='Mesin siap dikirimkan ke lokasi customer';
+    ss.textContent='Semua '+TOTAL+' item telah diverifikasi dan dinyatakan lolos pengecekan';
+  } else if(done>0){
+    sb.classList.add('hold');
+    sl.textContent='Hold — Perlu Perbaikan';
+    sm.textContent='Masih ada item yang belum diperiksa';
+    ss.textContent=(TOTAL-done)+' item belum dicentang — selesaikan seluruh checklist sebelum pengiriman';
   } else {
-    el.classList.remove('checked');
-    el.querySelector('input').checked = false;
-  }
-  updateProgress();
-}
-
-// ===== UPDATE PROGRESS =====
-function updateProgress() {
-  let totalChecked = 0;
-  let totalAll = 0;
-
-  sections.forEach(sec => {
-    let secChecked = 0;
-    let secTotal = 0;
-
-    sec.subsections.forEach(sub => {
-      sub.items.forEach((item, i) => {
-        const key = sec.id + '_' + sub.title + '_' + i;
-        secTotal++;
-        totalAll++;
-        if (checkedState[key]) {
-          secChecked++;
-          totalChecked++;
-        }
-      });
-    });
-
-    // Update badge
-    const badge = document.getElementById('badge_' + sec.id);
-    if (badge) {
-      badge.textContent = secChecked + ' / ' + secTotal;
-      badge.className = 'section-badge' + (secChecked === secTotal ? ' done' : '');
-    }
-
-    // Update mini progress
-    const prog = document.getElementById('prog_' + sec.id);
-    if (prog) prog.style.width = (secTotal > 0 ? (secChecked / secTotal * 100) : 0) + '%';
-
-    // Update card border
-    const card = document.getElementById('card_' + sec.id);
-    if (card) {
-      if (secChecked === secTotal && secTotal > 0) card.classList.add('completed');
-      else card.classList.remove('completed');
-    }
-  });
-
-  // Update header ring
-  document.getElementById('progressNum').textContent = totalChecked;
-  document.getElementById('totalNum').textContent = totalAll;
-
-  const circ = 138.2;
-  const pct = totalAll > 0 ? totalChecked / totalAll : 0;
-  const offset = circ - (pct * circ);
-  document.getElementById('ringFill').style.strokeDashoffset = offset;
-
-  const ringColor = pct === 1 ? '#39d353' : pct > 0.5 ? '#f0a500' : '#00d4ff';
-  document.getElementById('ringFill').style.stroke = ringColor;
-}
-
-// ===== RADIO SELECT =====
-function selectRadio(groupId, el) {
-  document.querySelectorAll('#' + groupId + ' label').forEach(l => l.classList.remove('selected'));
-  el.classList.add('selected');
-  el.querySelector('input').checked = true;
-}
-
-// ===== TOGGLE CHECKBOX =====
-function toggleCheckbox(el) {
-  const checkbox = el.querySelector('input[type="checkbox"]');
-  checkbox.checked = !checkbox.checked;
-  if (checkbox.checked) {
-    el.classList.add('selected');
-  } else {
-    el.classList.remove('selected');
+    sl.textContent='Belum dimulai';
+    sm.textContent='Status Akhir Pengiriman';
+    ss.textContent='Lengkapi semua checklist untuk menentukan status akhir mesin';
   }
 }
 
-// ===== STATUS =====
-function setStatus(val) {
-  currentStatus = val;
-  document.getElementById('btnReady').classList.remove('active');
-  document.getElementById('btnHold').classList.remove('active');
-  document.getElementById('btn' + (val === 'ready' ? 'Ready' : 'Hold')).classList.add('active');
-}
-
-// ===== RESET =====
-function resetAll() {
-  if (!confirm('Reset semua checklist? Data yang diisi akan hilang.')) return;
-  checkedState = {};
-  currentStatus = null;
-  document.getElementById('namaMesin').value = '';
-  document.getElementById('idMesin').value = '';
-  document.getElementById('catatan').value = '';
-  document.querySelectorAll('.radio-group label').forEach(l => l.classList.remove('selected'));
-  document.querySelectorAll('.checkbox-group label').forEach(l => l.classList.remove('selected'));
-  document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(cb => cb.checked = false);
-  document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
-  renderSections();
-  showToast('🔄 Semua data berhasil direset', '#ff6b35');
-}
-
-// ===== SUBMIT =====
-function submitForm() {
-  const nama = document.getElementById('namaMesin').value.trim();
-  const id = document.getElementById('idMesin').value.trim();
-  if (!nama) { showToast('⚠️ Nama mesin belum diisi!', '#f0a500'); return; }
-  if (!id) { showToast('⚠️ ID Mesin belum diisi!', '#f0a500'); return; }
-  if (!currentStatus) { showToast('⚠️ Status akhir belum dipilih!', '#f0a500'); return; }
-
-  const totalAll = Object.values(checkedState).filter(() => true).length;
-  const msg = currentStatus === 'ready'
-    ? `✅ Mesin "${nama}" READY TO INSTALL`
-    : `⏸️ Mesin "${nama}" HOLD / Perlu Perbaikan`;
-  showToast(msg, currentStatus === 'ready' ? '#39d353' : '#f0a500');
-}
-
-// ===== TOAST =====
-function showToast(msg, color = '#39d353') {
-  const toast = document.getElementById('toast');
-  const toastMsg = document.getElementById('toastMsg');
-  toast.style.borderColor = color;
-  toast.style.color = color;
-  toastMsg.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3500);
-}
-
-// ===== TIMESTAMP =====
-function setTimestamp() {
-  const now = new Date();
-  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  document.getElementById('timestampEl').textContent = 'Dibuat: ' + now.toLocaleDateString('id-ID', opts);
-}
-
-// ===== WHATSAPP =====
-function buildWAText() {
-  const nama = document.getElementById('namaMesin').value.trim() || '(belum diisi)';
-  const id = document.getElementById('idMesin').value.trim() || '(belum diisi)';
-  const catatan = document.getElementById('catatan').value.trim();
-
-  const typeSelected = document.querySelector('#typeGroup label.selected span');
-  const type = typeSelected ? typeSelected.textContent : '(belum dipilih)';
-
-  const teknisiSelected = Array.from(document.querySelectorAll('#teknisiGroup input[type="checkbox"]:checked')).map(cb => cb.value);
-  const teknisi = teknisiSelected.length > 0 ? teknisiSelected.join(', ') : '(belum dipilih)';
-
-  const picSelected = document.querySelector('#picGroup label.selected span');
-  const pic = picSelected ? picSelected.textContent : '(belum dipilih)';
-
-  const now = new Date();
-  const tgl = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const jam = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-
-  let totalChecked = 0;
-  let totalAll = 0;
-  sections.forEach(sec => {
-    sec.subsections.forEach(sub => {
-      sub.items.forEach((_, i) => {
-        const key = sec.id + '_' + sub.title + '_' + i;
-        totalAll++;
-        if (checkedState[key]) totalChecked++;
-      });
-    });
+document.querySelectorAll('.pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    const g=p.dataset.g;
+    document.querySelectorAll('.pill[data-g="'+g+'"]').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
   });
-
-  const statusLabel = currentStatus === 'ready'
-    ? '✅ READY TO INSTALL'
-    : currentStatus === 'hold'
-    ? '⏸️ HOLD / PERLU PERBAIKAN'
-    : '❓ (belum dipilih)';
-
-  let lines = [];
-  lines.push('🔧 *SOP CHECKLIST MESIN*');
-  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push(`📅 ${tgl}, ${jam}`);
-  lines.push('');
-  lines.push('📋 *INFORMASI MESIN*');
-  lines.push(`• Nama Mesin : ${nama}`);
-  lines.push(`• ID Mesin   : ${id}`);
-  lines.push(`• Type/Model : ${type}`);
-  lines.push(`• Teknisi    : ${teknisi}`);
-  lines.push(`• PIC QC     : ${pic}`);
-  lines.push('');
-
-  sections.forEach(sec => {
-    let secChecked = 0;
-    let secTotal = 0;
-    sec.subsections.forEach(sub => {
-      sub.items.forEach((_, i) => {
-        const key = sec.id + '_' + sub.title + '_' + i;
-        secTotal++;
-        if (checkedState[key]) secChecked++;
-      });
-    });
-    const icon = secChecked === secTotal ? '✅' : secChecked > 0 ? '🔶' : '❌';
-    lines.push(`${icon} *${sec.num}. ${sec.title}* (${secChecked}/${secTotal})`);
-
-    sec.subsections.forEach(sub => {
-      sub.items.forEach((item, i) => {
-        const key = sec.id + '_' + sub.title + '_' + i;
-        const mark = checkedState[key] ? '☑' : '☐';
-        lines.push(`   ${mark} ${item}`);
-      });
-    });
-    lines.push('');
-  });
-
-  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push(`📊 Progress: ${totalChecked}/${totalAll} item selesai`);
-  lines.push(`🏁 *Status Akhir: ${statusLabel}*`);
-  if (catatan) {
-    lines.push('');
-    lines.push(`📝 *Catatan:*\n${catatan}`);
-  }
-  lines.push('');
-  lines.push('_Dikirim via SOP Checklist Mesin_');
-
-  return lines.join('\n');
-}
-
-function openWAModal() {
-  const text = buildWAText();
-  document.getElementById('waPreview').textContent = text;
-  document.getElementById('waModal').classList.add('open');
-}
-
-function closeWAModal() {
-  document.getElementById('waModal').classList.remove('open');
-}
-
-function copyWAText() {
-  const text = buildWAText();
-  navigator.clipboard.writeText(text).then(() => {
-    showToast('📋 Teks berhasil di-copy!', '#25D366');
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('📋 Teks berhasil di-copy!', '#25D366');
-  });
-}
-
-function sendToWA() {
-  const text = buildWAText();
-  const phone = document.getElementById('waPhone').value.trim().replace(/\D/g, '');
-  const encoded = encodeURIComponent(text);
-  const url = phone
-    ? `https://wa.me/${phone}?text=${encoded}`
-    : `https://wa.me/?text=${encoded}`;
-  window.open(url, '_blank');
-}
-
-// Close modal on overlay click
-document.getElementById('waModal').addEventListener('click', function(e) {
-  if (e.target === this) closeWAModal();
 });
 
-// ===== INIT =====
-renderSections();
-setTimestamp();
+function resetAll(){
+  document.querySelectorAll('.ci').forEach(el=>el.classList.remove('done'));
+  document.getElementById('inp-nama').value='';
+  document.getElementById('inp-id').value='';
+  document.querySelectorAll('.field-input').forEach(el=>el.value='');
+  document.querySelectorAll('.pill').forEach(el=>el.classList.remove('active'));
+  upd();
+}
 
-// Initialize checkbox event listeners for teknisi
-document.querySelectorAll('#teknisiGroup input[type="checkbox"]').forEach(checkbox => {
-  checkbox.addEventListener('change', function() {
-    const label = this.closest('label');
-    if (this.checked) {
-      label.classList.add('selected');
-    } else {
-      label.classList.remove('selected');
-    }
-  });
+/* ===== SCAN LOGIC ===== */
+function openScan(target){
+  scanTarget=target;
+  const badge=document.getElementById('scan-target-badge');
+  const name=document.getElementById('scan-target-name');
+  if(target==='nama'){badge.textContent='Nama Mesin';name.textContent='Hasil scan akan diisi ke field Nama Mesin';}
+  else{badge.textContent='ID Mesin';name.textContent='Hasil scan akan diisi ke field ID Mesin';}
+  document.getElementById('manual-input').value='';
+  document.getElementById('hw-input').value='';
+  hideResult();
+  document.getElementById('scan-modal').classList.add('open');
+  switchMode('cam');
+}
+
+function closeScan(){
+  stopCamera();
+  document.getElementById('scan-modal').classList.remove('open');
+  scanTarget=null;
+}
+
+function switchMode(m){
+  currentMode=m;
+  document.getElementById('btn-cam').classList.toggle('active',m==='cam');
+  document.getElementById('btn-hw').classList.toggle('active',m==='hw');
+  document.getElementById('mode-cam').style.display=m==='cam'?'':'none';
+  document.getElementById('mode-hw').style.display=m==='hw'?'':'none';
+  if(m==='hw'){
+    stopCamera();
+    setTimeout(()=>document.getElementById('hw-input').focus(),100);
+  }
+}
+
+function startCamera(){
+  if(camRunning) return;
+  document.getElementById('cam-placeholder').style.display='none';
+  document.getElementById('start-cam-btn').style.display='none';
+  if(!html5QrCode) html5QrCode=new Html5Qrcode('reader');
+  Html5Qrcode.getCameras().then(cameras=>{
+    if(!cameras||!cameras.length){showError('Kamera tidak ditemukan');return;}
+    const camId=cameras[cameras.length-1].id;
+    html5QrCode.start(camId,{fps:12,qrbox:{width:220,height:120}},onScanSuccess,()=>{}).then(()=>{camRunning=true;}).catch(err=>{showError('Tidak dapat membuka kamera: '+err);});
+  }).catch(()=>showError('Akses kamera ditolak. Izinkan akses kamera di browser.'));
+}
+
+function stopCamera(){
+  if(html5QrCode&&camRunning){
+    html5QrCode.stop().catch(()=>{});
+    camRunning=false;
+  }
+  document.getElementById('cam-placeholder').style.display='';
+  document.getElementById('start-cam-btn').style.display='';
+}
+
+function onScanSuccess(decodedText){
+  applyValue(decodedText);
+}
+
+function showError(msg){
+  document.getElementById('cam-placeholder').style.display='';
+  document.getElementById('cam-placeholder').innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'+msg;
+}
+
+function confirmManual(){
+  const v=document.getElementById('manual-input').value.trim();
+  if(!v) return;
+  applyValue(v);
+}
+
+function confirmHW(){
+  const v=document.getElementById('hw-input').value.trim();
+  if(!v) return;
+  applyValue(v);
+}
+
+document.getElementById('hw-input').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    const v=this.value.trim();
+    if(v) applyValue(v);
+  }
 });
+
+function applyValue(val){
+  if(!val||!scanTarget) return;
+  stopCamera();
+  const inp=document.getElementById(scanTarget==='nama'?'inp-nama':'inp-id');
+  inp.value=val;
+  inp.style.borderColor='var(--scan)';
+  setTimeout(()=>inp.style.borderColor='',2000);
+  const box=document.getElementById('scan-result-box');
+  const label=scanTarget==='nama'?'Nama Mesin':'ID Mesin';
+  document.getElementById('scan-result-txt').textContent=label+' berhasil diisi: '+val;
+  box.classList.add('show');
+  setTimeout(()=>{closeScan();},1400);
+}
+
+function hideResult(){document.getElementById('scan-result-box').classList.remove('show')}
+
+document.getElementById('scan-modal').addEventListener('click',function(e){
+  if(e.target===this) closeScan();
+});
+
+upd();
 </script>
 </body>
 </html>
