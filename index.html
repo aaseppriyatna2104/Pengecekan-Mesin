@@ -218,6 +218,36 @@ td{padding:6px 10px;vertical-align:middle}
 .print-header{display:none}
 .print-info{display:none}
 .print-tujuan{display:none}
+
+/* SIGNATURE BOXES */
+.sign-box{
+  border:1px solid var(--border);border-radius:6px;padding:10px 12px;
+  cursor:pointer;transition:all .15s;background:#fff;
+  display:flex;flex-direction:column;gap:4px;
+}
+.sign-box:hover{border-color:var(--navy);box-shadow:0 0 0 2px rgba(15,34,64,.08)}
+.sign-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);text-align:center}
+.sign-canvas-wrap{
+  height:56px;border:1px dashed #d1d5db;border-radius:4px;
+  overflow:hidden;background:#fafafa;display:flex;align-items:center;justify-content:center;
+}
+.sign-canvas-wrap img.sign-img{width:100%;height:100%;object-fit:contain;padding:2px}
+.sign-placeholder{display:flex;flex-direction:column;align-items:center;gap:4px;color:#9ca3af;font-size:10px;font-weight:500}
+.sign-name-line{border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151;text-align:center}
+.sign-clear-btn{
+  font-family:inherit;font-size:10px;font-weight:500;padding:2px 8px;
+  border-radius:3px;border:1px solid #fca5a5;background:#fef2f2;color:#dc2626;
+  cursor:pointer;align-self:center;
+}
+.sign-clear-btn:hover{background:#fee2e2}
+
+@media print{
+  .sign-box{cursor:default!important;border-color:#e5e7eb!important;box-shadow:none!important}
+  .sign-placeholder{display:none!important}
+  .sign-clear-btn{display:none!important}
+  .sign-canvas-wrap{border-style:solid!important}
+  #sign-modal{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -424,18 +454,72 @@ td{padding:6px 10px;vertical-align:middle}
     </div>
 
     <!-- TANDA TANGAN -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px">
-      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">PIC Gudang / QC</div>
-        <div id="sign-pic" style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px" id="sign-grid">
+      <div class="sign-box" onclick="openSign('pic')">
+        <div class="sign-lbl">PIC Gudang / QC</div>
+        <div class="sign-canvas-wrap">
+          <img class="sign-img" id="sign-img-pic" src="" alt="" style="display:none">
+          <div class="sign-placeholder" id="sign-ph-pic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            Klik untuk tanda tangan
+          </div>
+        </div>
+        <div class="sign-name-line" id="sign-name-pic">_______________</div>
+        <button class="sign-clear-btn" id="sign-clear-pic" onclick="event.stopPropagation();clearSign('pic')" style="display:none">✕ Hapus</button>
       </div>
-      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">Teknisi Penerima</div>
-        <div id="sign-tek" style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+      <div class="sign-box" onclick="openSign('tek')">
+        <div class="sign-lbl">Teknisi Penerima</div>
+        <div class="sign-canvas-wrap">
+          <img class="sign-img" id="sign-img-tek" src="" alt="" style="display:none">
+          <div class="sign-placeholder" id="sign-ph-tek">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            Klik untuk tanda tangan
+          </div>
+        </div>
+        <div class="sign-name-line" id="sign-name-tek">_______________</div>
+        <button class="sign-clear-btn" id="sign-clear-tek" onclick="event.stopPropagation();clearSign('tek')" style="display:none">✕ Hapus</button>
       </div>
-      <div style="border:1px solid var(--border);border-radius:5px;padding:8px 12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:22px">Supervisor / Approval</div>
-        <div style="border-top:1px solid #374151;padding-top:4px;font-size:10px;font-weight:600;color:#374151">_______________</div>
+      <div class="sign-box" onclick="openSign('spv')">
+        <div class="sign-lbl">Supervisor / Approval</div>
+        <div class="sign-canvas-wrap">
+          <img class="sign-img" id="sign-img-spv" src="" alt="" style="display:none">
+          <div class="sign-placeholder" id="sign-ph-spv">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            Klik untuk tanda tangan
+          </div>
+        </div>
+        <div class="sign-name-line" id="sign-name-spv">_______________</div>
+        <button class="sign-clear-btn" id="sign-clear-spv" onclick="event.stopPropagation();clearSign('spv')" style="display:none">✕ Hapus</button>
+      </div>
+    </div>
+
+    <!-- SIGN MODAL -->
+    <div id="sign-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;align-items:center;justify-content:center">
+      <div style="background:#fff;border-radius:10px;width:440px;max-width:95vw;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.22)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--navy);color:#fff">
+          <div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            Tanda Tangan — <span id="modal-sign-label">–</span>
+          </div>
+          <button onclick="closeSign()" style="background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;border-radius:4px;padding:3px 9px;font-size:16px;line-height:1">✕</button>
+        </div>
+        <div style="padding:16px">
+          <div style="font-size:11px;color:var(--gray);margin-bottom:8px">Tanda tangan di dalam kotak di bawah ini:</div>
+          <div style="position:relative;border:1.5px dashed #9ca3af;border-radius:6px;background:#fafafa;overflow:hidden">
+            <canvas id="sign-canvas" style="display:block;width:100%;touch-action:none;cursor:crosshair"></canvas>
+            <div id="sign-hint" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#d1d5db;font-size:12px;gap:6px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              Mulai tanda tangan di sini
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px">
+            <button onclick="clearCanvas()" style="font-family:inherit;font-size:12px;font-weight:500;padding:7px 14px;border-radius:5px;border:1px solid var(--border);background:#f3f4f6;color:var(--gray);cursor:pointer">↺ Bersihkan</button>
+            <div style="display:flex;gap:8px">
+              <button onclick="closeSign()" style="font-family:inherit;font-size:12px;font-weight:500;padding:7px 14px;border-radius:5px;border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer">Batal</button>
+              <button onclick="saveSign()" style="font-family:inherit;font-size:12px;font-weight:600;padding:7px 20px;border-radius:5px;border:none;background:var(--navy);color:#fff;cursor:pointer">Simpan Tanda Tangan</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -523,8 +607,8 @@ function upd(){
   // Sign labels
   const pic=document.querySelector('#grp-pic .pill.active');
   const tek=document.querySelector('#grp-tek .pill.active');
-  document.getElementById('sign-pic').textContent=pic?pic.textContent:'_______________';
-  document.getElementById('sign-tek').textContent=tek?tek.textContent:'_______________';
+  document.getElementById('sign-name-pic').textContent=pic?pic.textContent:'_______________';
+  document.getElementById('sign-name-tek').textContent=tek?tek.textContent:'_______________';
 }
 
 // Pills
@@ -545,6 +629,7 @@ function resetAll(){
   });
   document.querySelectorAll('input').forEach(i=>i.value='');
   document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  ['pic','tek','spv'].forEach(k=>clearSign(k));
   upd();
 }
 
@@ -555,6 +640,106 @@ window.addEventListener('beforeprint',()=>{
   const wkt=now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('p-tgl').textContent=tgl;
   document.getElementById('p-wkt').textContent=wkt;
+});
+
+// ===== SIGNATURE PAD =====
+let currentSignKey=null;
+let signCanvas,signCtx,isDrawing=false,hasDrawn=false;
+const signLabels={pic:'PIC Gudang / QC',tek:'Teknisi Penerima',spv:'Supervisor / Approval'};
+
+function openSign(key){
+  currentSignKey=key;
+  document.getElementById('modal-sign-label').textContent=signLabels[key];
+  document.getElementById('sign-modal').style.display='flex';
+  initCanvas();
+}
+
+function closeSign(){
+  document.getElementById('sign-modal').style.display='none';
+  currentSignKey=null;
+}
+
+function initCanvas(){
+  signCanvas=document.getElementById('sign-canvas');
+  const wrap=signCanvas.parentElement;
+  const w=wrap.offsetWidth||400;
+  const h=130;
+  signCanvas.width=w*2; // retina
+  signCanvas.height=h*2;
+  signCanvas.style.height=h+'px';
+  signCtx=signCanvas.getContext('2d');
+  signCtx.scale(2,2);
+  signCtx.strokeStyle='#0f2240';
+  signCtx.lineWidth=2;
+  signCtx.lineCap='round';
+  signCtx.lineJoin='round';
+  signCtx.clearRect(0,0,w,h);
+  hasDrawn=false;
+  document.getElementById('sign-hint').style.display='flex';
+
+  // Mouse
+  signCanvas.onmousedown=e=>{startDraw(getPos(e,signCanvas))};
+  signCanvas.onmousemove=e=>{if(isDrawing)draw(getPos(e,signCanvas))};
+  signCanvas.onmouseup=()=>stopDraw();
+  signCanvas.onmouseleave=()=>stopDraw();
+  // Touch
+  signCanvas.ontouchstart=e=>{e.preventDefault();startDraw(getPos(e.touches[0],signCanvas))};
+  signCanvas.ontouchmove=e=>{e.preventDefault();if(isDrawing)draw(getPos(e.touches[0],signCanvas))};
+  signCanvas.ontouchend=()=>stopDraw();
+}
+
+function getPos(e,el){
+  const r=el.getBoundingClientRect();
+  return{x:e.clientX-r.left,y:e.clientY-r.top};
+}
+function startDraw(p){
+  isDrawing=true;
+  signCtx.beginPath();
+  signCtx.moveTo(p.x,p.y);
+  if(!hasDrawn){hasDrawn=true;document.getElementById('sign-hint').style.display='none';}
+}
+function draw(p){
+  signCtx.lineTo(p.x,p.y);
+  signCtx.stroke();
+  signCtx.beginPath();
+  signCtx.moveTo(p.x,p.y);
+}
+function stopDraw(){isDrawing=false;}
+function clearCanvas(){
+  if(!signCtx)return;
+  const w=signCanvas.width/2,h=signCanvas.height/2;
+  signCtx.clearRect(0,0,w,h);
+  hasDrawn=false;
+  document.getElementById('sign-hint').style.display='flex';
+}
+
+function saveSign(){
+  if(!hasDrawn){closeSign();return;}
+  const dataUrl=signCanvas.toDataURL('image/png');
+  const key=currentSignKey;
+  // Show image in box
+  const img=document.getElementById('sign-img-'+key);
+  const ph=document.getElementById('sign-ph-'+key);
+  const clrBtn=document.getElementById('sign-clear-'+key);
+  img.src=dataUrl;
+  img.style.display='block';
+  ph.style.display='none';
+  clrBtn.style.display='block';
+  closeSign();
+}
+
+function clearSign(key){
+  const img=document.getElementById('sign-img-'+key);
+  const ph=document.getElementById('sign-ph-'+key);
+  const clrBtn=document.getElementById('sign-clear-'+key);
+  img.src='';img.style.display='none';
+  ph.style.display='flex';
+  clrBtn.style.display='none';
+}
+
+// Close modal on backdrop click
+document.getElementById('sign-modal').addEventListener('click',function(e){
+  if(e.target===this)closeSign();
 });
 
 upd();
